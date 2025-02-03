@@ -11,94 +11,92 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     firebase.initializeApp(firebaseConfig);
+    let dataDisplay = document.getElementById("chat");
+    dataDisplay.innerHTML = "";
 
-    // Create a unique user ID for each session
     function generateUserID() {
         let timestamp = Date.now();
         let randomPart = Math.floor(Math.random() * 1000000);
-    return `user_${timestamp}_${randomPart}`;
+        return `user_${timestamp}_${randomPart}`;
     }
 
     const userID = generateUserID();
 
-    // Fetch questions from Firebase and initialize the chatbot
     function fetchQuestionsAndStartChat() {
-        
-    let questionsRef = firebase.database().ref("questions");
-    questionsRef.once("value").then((snapshot) => {
-   
-        const questions = snapshot.val();
-        if (questions) {
-            startChatbot(questions, userID);
-        } else {
-           console.error("No questions found in Firebase!");
-        }
-    });
+        let questionsRef = firebase.database().ref("questions");
+        questionsRef.once("value").then((snapshot) => {
+            const questions = snapshot.val();
+            if (questions) {
+                startChatbot(questions, userID);
+            } else {
+                console.error("No questions found in Firebase!");
+            }
+        });
     }
 
-    // Function to start the chatbot
     function startChatbot(questions, userID) {
         
-    const questionKeys = Object.keys(questions); // Get all question IDs
+    const questionKeys = Object.keys(questions);
     let currentQuestionIndex = 0;
 
-    // Function to display a question
     function displayQuestion() {
         const currentQuestionKey = questionKeys[currentQuestionIndex];
         const currentQuestion = questions[currentQuestionKey];
 
-        const questionContainer = document.getElementById("chat");
-        questionContainer.innerHTML = `
-        <div>
-            <h2>${currentQuestion.text}</h2>
-            ${Object.entries(currentQuestion.options)
+        dataDisplay.innerHTML = `
+        <div class="option-wrapper">
+          ${Object.entries(currentQuestion.options)
             .map(
-                ([key, option]) => `
-            <button class="option-button" data-option="${key}">${option}</button>
-            `
+              ([key, option]) => `
+                <button class="option-button" data-option="${key}">${option}</button>
+              `
             )
             .join("")}
         </div>
-        `;
+                <p class="msg bot">${currentQuestion.text}</p>
+      ` + dataDisplay.innerHTML;
 
-        // Add click handlers for options
-        const optionButtons = document.querySelectorAll(".option-button");
-        optionButtons.forEach((button) => {
+      document.querySelectorAll(".option-button").forEach((button) => {
         button.addEventListener("click", (e) => {
-            const selectedOption = e.target.getAttribute("data-option");
+          const selectedOption = e.target.getAttribute("data-option");
+          dataDisplay.innerHTML =
+          `<div class="msg user">${currentQuestion.options[selectedOption]}</div>` +
+          dataDisplay.innerHTML;
+          setTimeout(function() {
             handleResponse(selectedOption, currentQuestionKey, currentQuestion);
+          }, 1500);
+          
         });
-        });
+      });
     }
 
-    // Function to handle user response
+
     function handleResponse(selectedOption, questionKey, question) {
              
-    let userResponsesRef = firebase.database().ref(`responses/${userID}`);
-        const responseData = {
-        questionKey: questionKey,
-        questionText: question.text,
-        selectedOption: selectedOption,
-        optionText: question.options[selectedOption],
-        };
-        userResponsesRef.set({
-            response: responseData,
-          });
+        let userResponsesRef = firebase.database().ref(`responses/${userID}`);
+            const responseData = {
+            questionKey: questionKey,
+            questionText: question.text,
+            selectedOption: selectedOption,
+            optionText: question.options[selectedOption],
+            };
+            userResponsesRef.push(responseData);
 
-        // Display bot's response
-        const responseContainer = document.getElementById("response-container");
-        console.log(question.responses[selectedOption])
-        responseContainer.innerHTML = `<p>${question.responses[selectedOption]}</p>`;
+            console.log(question.responses[selectedOption])
+            dataDisplay.innerHTML =
+            `<p class="msg bot">${question.responses[selectedOption] || "Interesting choice!"}</p>` +
+            dataDisplay.innerHTML;
 
-        // Move to the next question or finish
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questionKeys.length) {
-        setTimeout(displayQuestion, 2000); // Wait before showing the next question
-        } else {
-        responseContainer.innerHTML += `
-            <p>Thank you for completing the chat! Reflect on your answers.</p>
-        `;
-        }
+            // Move to the next question or finish
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questionKeys.length) {
+            setTimeout(displayQuestion, 2200); // Wait before showing the next question
+            } else {
+                dataDisplay.innerHTML += `
+                <p class="msg bot">Thank you for completing the chat! Reflect on your answers.</p>
+              ` +
+              dataDisplay.innerHTML;;
+            }
     }
 
     // Start with the first question
