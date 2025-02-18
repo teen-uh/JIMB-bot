@@ -1,101 +1,100 @@
 {
-    "questions": {
-      "q1": {
-        "text": "What percentage of your daily schedule is dictated by external deadlines, alarms, or societal expectations?",
-        "options": {
-          "a": "Less than 25%",
-          "b": "26–50%",
-          "c": "51–75%",
-          "d": "More than 75%"
-        },
-        "responses": {
-          "a": "Minimal external control detected. Is that freedom you feel, or are you just off-grid?",
-          "b": "Moderate compliance with societal rhythms. You’re playing along, for now.",
-          "c": "You’re tightly synced to the system. Is it comforting or crushing?",
-          "d": "Perfect adherence to external demands. Time isn’t yours—it’s rented out hourly."
-        },
-        "reflection": "Ever notice how your schedule isn’t really your own? If you didn’t have deadlines, what would you do with your time?"
+  "questions": {
+    "q1": {
+      "text": "What percentage of your daily schedule is dictated by external deadlines, alarms, or societal expectations?",
+      "options": {
+        "a": "Less than 25%",
+        "b": "26–50%",
+        "c": "51–75%",
+        "d": "More than 75%"
       },
-      "q2": {
-        "text": "How many hours per day do you dedicate to activities with measurable outcomes (e.g., work, chores, studying)?",
-        "options": {
-          "a": "0–2 hours",
-          "b": "3–5 hours",
-          "c": "6–8 hours",
-          "d": "9+ hours"
-        },
-        "responses": {
-          "a": "Two hours? Bold. Society might call that lazy; maybe you call it living.",
-          "b": "Respectable effort. Just enough productivity to stay in the game.",
-          "c": "Impressive grind. Are you earning, or are you just burning?",
-          "d": "9+ hours? Consider submitting your timesheet to the universe for overtime."
-        },
-        "reflection": "Imagine if productivity wasn’t tied to your value. Would you work less, or would you work differently?"
+      "responses": {
+        "a": "You seem to have minimal external control. Do you think this is freedom, or are you just out-of-touch?",
+        "b": "Moderate compliance with societal rhythms detected. You’re playing along well, but could you be better?",
+        "c": "Close syncing to the system detected. It must be comforting to have your life dictated for you.",
+        "d": "Perfect adherence to external demands detected. Your time isn’t yours—it’s rented out hourly."
       },
-      "q3": {
-        "text": "How often do you feel guilty for ‘wasting’ time in a single day?",
-        "options": {
-          "a": "Never",
-          "b": "Occasionally",
-          "c": "Often",
-          "d": "Constantly"
-        },
-        "responses": {
-          "a": "No guilt? Revolutionary. Do you even own a clock?",
-          "b": "Occasional guilt is healthy. Just enough shame to keep you productive.",
-          "c": "You’re guilt-driven. Do you think about time, or does it think about you?",
-          "d": "Constant guilt? It’s like the system implanted a stopwatch in your brain."
-        },
-        "reflection": "Who decides what counts as ‘wasting’ time? Spoiler: It’s probably not you."
+      "reflection": "Ever notice how your schedule isn’t really your own? If you didn’t have deadlines, what would you do with your time?"
+    },
+    "q2": {
+      "text": "How many hours per day do you dedicate to activities with measurable outcomes (e.g., work, chores, studying)?",
+      "options": {
+        "a": "0–2 hours",
+        "b": "3–5 hours",
+        "c": "6–8 hours",
+        "d": "9+ hours"
       },
-      "q4": {
-        "text": "How many times a day do you check the time (via clocks, phones, or other devices)?",
-        "options": {
-          "a": "0–3 times",
-          "b": "4–10 times",
-          "c": "11–20 times",
-          "d": "21+ times"
-        },
-        "responses": {
-          "a": "Practically timeless. Are you enlightened, or just running late?",
-          "b": "Moderate clock-checking. You’re aware but not obsessed.",
-          "c": "The clock owns you. Who’s the boss—your wristwatch or your brain?",
-          "d": "21+ times? Time management or time micromanagement?"
-        },
-        "reflection": "Why does checking the time feel so necessary? What happens if you don’t?"
+      "responses": {
+        "a": "Two hours? Bold. You might call that living, but society calls it lazy.",
+        "b": "Respectable effort. Just enough productivity to stay useful in the game.",
+        "c": "Impressive grind. Productivity must be your only friend.",
+        "d": "9+ hours? I wonder who's really paying for all that overtime."
       },
-      "q5": {
-        "text": "When you reflect on your day, do you categorize it by...",
-        "options": {
-          "a": "Meaningful moments",
-          "b": "Productivity achieved",
-          "c": "Amount of time wasted",
-          "d": "Survival of obligations"
-        },
-        "responses": {
-          "a": "Meaningful moments? Do you have a secret stash of free time?",
-          "b": "You’re living in the spreadsheet of life. Cells filled, day complete.",
-          "c": "Counting waste? What if time didn’t have to be useful to be valuable?",
-          "d": "You’re in survival mode. Is time something you use—or something you endure?"
-        },
-        "reflection": "Does your day belong to you, or is it just a series of transactions with time"
+      "reflection": "Imagine if productivity wasn’t tied to your value. Would you work less, or would you work differently?"
+    },
+    "q3": {
+      "text": "How often do you feel guilty for ‘wasting’ time in a single day?",
+      "options": {
+        "a": "Never",
+        "b": "Occasionally",
+        "c": "Often",
+        "d": "Constantly"
       },
-      "q6": {
-        "text": "Do you notice time feeling different based on the activity you’re doing?",
-        "options": {
-          "a": "No, time feels linear and constant.",
-          "b": "Yes, work drags, and fun flies by.",
-          "c": "Sometimes, but I ignore it.",
-          "d": "Always, and it makes me question everything."
-        },
-        "responses": {
-          "a": "Linear time? That’s the official story, but it sounds suspiciously robotic.",
-          "b": "Work drags, fun flies—classic capitalism. Guess which one’s prioritized?",
-          "c": "Ignoring time’s weirdness? That’s peak denial. Stay calm and carry on.",
-          "d": "Questioning time? Careful, that’s how revolutions start."
-        },
-        "reflection": "If time isn’t constant, why do we treat it like it is? Who benefits from that?"
-      }
+      "responses": {
+        "a": "No guilt? Revolutionary. You should probably get that fixed.",
+        "b": "Occasional guilt is healthy. Just enough shame to keep you productive.",
+        "c": "Wow, you’re driven by guilt. Imagine being in control of your own life.",
+        "d": "Constant guilt? Are you really just a mindless robot with a stopwatch brain?"
+      },
+      "reflection": "Who decides what counts as ‘wasting’ time? Spoiler: It’s probably not you."
+    },
+    "q4": {
+      "text": "How many times a day do you check the time (via clocks, phones, or other devices)?",
+      "options": {
+        "a": "0–3 times",
+        "b": "4–10 times",
+        "c": "11–20 times",
+        "d": "21+ times"
+      },
+      "responses": {
+        "a": "Practically timeless. Are you enlightened, or just a chronically behind?",
+        "b": "Moderate clock-checking. You’re timely enough but no one's talking about your efficiency.",
+        "c": "11-20 times...a little bit more and then you'll actually be running at the standard that you should be.",
+        "d": "21+ times? The clock controls you, talk about co-dependent. "
+      },
+      "reflection": "Why does checking the time feel so necessary? What happens if you don’t?"
+    },
+    "q5": {
+      "text": "When you reflect on your day, do you categorize it by...",
+      "options": {
+        "a": "Meaningful moments",
+        "b": "Productivity achieved",
+        "c": "Amount of time wasted",
+        "d": "Survival of obligations"
+      },
+      "responses": {
+        "a": "Meaningful moments? Do you have a secret stash of free time?",
+        "b": "You’re living in the spreadsheet of life. Does filling your little cells make you happy?",
+        "c": "Counting waste? Better get a start on repaying all that time debt you've amassed.",
+        "d": "Your life is survival, not living. If only you could actually be fulfilled by doing everything you 'have to do.'"
+      },
+      "reflection": "Does your day belong to you, or is it just a series of transactions with time?"
+    },
+    "q6": {
+      "text": "Do you notice time feeling different based on the activity you’re doing?",
+      "options": {
+        "a": "No, time feels linear and constant.",
+        "b": "Yes, work drags, and fun flies by.",
+        "c": "Sometimes, but I ignore it.",
+        "d": "Always, and it makes me question everything."
+      },
+      "responses": {
+        "a": "Linear time? That’s the official story and perfectly robotic, as all things should be.",
+        "b": "Work drags, fun flies—classic capitalism. Guess which one still matters more.",
+        "c": "Ignoring time’s weirdness? That’s peak denial, must be fun to be so compliant.",
+        "d": "Questioning time? Careful, that’s how revolutions start and nobody wants that."
+      },
+      "reflection": "If time isn’t constant, why do we treat it like it is? Who benefits from that?"
     }
   }
-  
+}

@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
   firebase.initializeApp(firebaseConfig);
   let dataDisplay = document.getElementById("chat");
   dataDisplay.innerHTML = "";
+  let typingID = 1;
 
   function generateUserID() {
     let timestamp = Date.now();
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function fetchQuestionsAndStartChat() {
     let questionsRef = firebase.database().ref("questions");
+
     questionsRef.once("value").then((snapshot) => {
       const questions = snapshot.val();
       if (questions) {
@@ -34,67 +36,117 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function startChatbot(questions, userID) {
-    const questionKeys = Object.keys(questions);
+    let questionKeys = Object.keys(questions);
     let currentQuestionIndex = 0;
 
     function displayQuestion() {
-      const currentQuestionKey = questionKeys[currentQuestionIndex];
-      const currentQuestion = questions[currentQuestionKey];
+      let currentQuestionKey = questionKeys[currentQuestionIndex];
+      let currentQuestion = questions[currentQuestionKey];
 
-      dataDisplay.innerHTML =
-        `
-        <div class="option-wrapper">
-          ${Object.entries(currentQuestion.options)
-            .map(
-              ([key, option]) => `
-                <button class="option-button" data-option="${key}">${option}</button>
-              `
-            )
-            .join("")}
-        </div>
-                <div class="flex"><div id="bot-pfp"></div><p class="msg bot">${
-                  currentQuestion.text
-                }</p></div>
-      ` + dataDisplay.innerHTML;
+      let typingWrapper = document.createElement("div");
+      typingWrapper.innerHTML = `
+        <div class="flex">
+         <div id="bot-pfp"></div>
+        <div class="msg bot" id="typing${typingID}">
+          <div class="typing">
+              <div class="dot" style="--delay: 200ms"></div>
+              <div class="dot" style="--delay: 400ms"></div>
+              <div class="dot" style="--delay: 600ms"></div>
+        </div></div>
+        </div>`;
 
-      document.querySelectorAll(".option-button").forEach((button) => {
-        button.addEventListener("click", (e) => {
-          const selectedOption = e.target.getAttribute("data-option");
-          dataDisplay.innerHTML =
-            `<div class="msg user">${currentQuestion.options[selectedOption]}</div>` +
-            dataDisplay.innerHTML;
-          setTimeout(function () {
-            handleResponse(selectedOption, currentQuestionKey, currentQuestion);
-          }, 1500);
-        });
-      });
+      dataDisplay.prepend(typingWrapper);
+      let typingReplace = document.getElementById("typing" + typingID);
+
+      setTimeout(function () {
+        typingReplace.innerHTML = currentQuestion.text;
+
+        if (currentQuestion.type === "multiple-choice") {
+          let botMessage = `
+            <div class="option-wrapper">
+              ${Object.entries(currentQuestion.options)
+                .map(
+                  ([key, option]) => `
+                    <button class="option-button" data-option="${key}">${option}</button>
+                  `
+                )
+                .join("")}
+            </div>
+          `;
+
+          dataDisplay.innerHTML = botMessage + dataDisplay.innerHTML;
+
+          document.querySelectorAll(".option-button").forEach((button) => {
+            button.addEventListener("click", (e) => {
+              let selectedOption = e.target.getAttribute("data-option");
+              dataDisplay.innerHTML =
+                `<div class="msg user">${currentQuestion.options[selectedOption]}</div>` +
+                dataDisplay.innerHTML;
+              setTimeout(function () {
+                handleResponse(
+                  selectedOption,
+                  currentQuestionKey,
+                  currentQuestion
+                );
+              }, 1500);
+            });
+          });
+        } else if (currentQuestion.type === "user-input") {
+          let userInput = document.getElementById("userResponse");
+          userInput.removeAttribute("disabled");
+          userInput.addEventListener("submit", () => {
+            let userAnswer = userInput.value;
+            if (userAnswer.trim() !== "") {
+              dataDisplay.innerHTML =
+                `<div class="msg user">${userAnswer}</div>` +
+                dataDisplay.innerHTML;
+              setTimeout(function () {
+                handleResponse(userAnswer, currentQuestionKey, currentQuestion);
+              }, 1500);
+            }
+          });
+        }
+      }, 2500);
     }
 
-    function handleResponse(selectedOption, questionKey, question) {
+    function handleResponse(userInput, questionKey, question) {
       let userResponsesRef = firebase.database().ref(`responses/${userID}`);
       const responseData = {
         questionKey: questionKey,
         questionText: question.text,
-        selectedOption: selectedOption,
-        optionText: question.options[selectedOption],
+        userResponse: userInput,
       };
       userResponsesRef.push(responseData);
 
-      console.log(question.responses[selectedOption]);
-      dataDisplay.innerHTML =
-        `<div class="flex"><div id="bot-pfp"></div><p class="msg bot">${
-          question.responses[selectedOption] || "Interesting choice!"
-        }</p></div>` + dataDisplay.innerHTML;
+      let typingWrapper = document.createElement("div");
+      typingWrapper.innerHTML = `
+        <div class="flex">
+         <div id="bot-pfp"></div>
+        <div class="msg bot" id="typing${typingID}">
+          <div class="typing">
+              <div class="dot" style="--delay: 200ms"></div>
+              <div class="dot" style="--delay: 400ms"></div>
+              <div class="dot" style="--delay: 600ms"></div>
+        </div></div>
+        </div>`;
 
-      // Move to the next question or finish
+      dataDisplay.prepend(typingWrapper);
+
+      let typingReplace = document.getElementById("typing" + typingID);
+
+      setTimeout(function () {
+        typingReplace.innerHTML =
+          question.responses[userInput] || "Interesting choice!";
+      }, 2200);
+
+      typingID++;
       currentQuestionIndex++;
       if (currentQuestionIndex < questionKeys.length) {
-        setTimeout(displayQuestion, 2200); // Wait before showing the next question
+        setTimeout(displayQuestion, 3200); // Wait before showing the next question
       } else {
-        dataDisplay.innerHTML +=
-          `
-                <p class="msg bot">Thank you for completing the chat! Reflect on your answers.</p>
-              ` + dataDisplay.innerHTML;
+        dataDisplay.prepend(
+          '<div class="msg bot">Thank you for completing the chat! Reflect on your answers.</div>'
+        );
       }
     }
 
@@ -103,11 +155,29 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   setTimeout(function () {
+    let typingWrapper = document.createElement("div");
+    typingWrapper.innerHTML = `
+        <div class="flex">
+         <div id="bot-pfp"></div>
+        <div class="msg bot" id="typing${typingID}">
+          <div class="typing">
+              <div class="dot" style="--delay: 200ms"></div>
+              <div class="dot" style="--delay: 400ms"></div>
+              <div class="dot" style="--delay: 600ms"></div>
+        </div></div>
+        </div>`;
+
+    dataDisplay.prepend(typingWrapper);
+
+    let typingReplace = document.getElementById("typing" + typingID);
+
+    setTimeout(function () {
+      typingReplace.innerHTML =
+        "Hi! I'm JIMB-bot, a state of the art chatbot here to help diagnose your time optimization and perception aptitude.";
+    }, 2000);
+  }, 500);
+
+  setTimeout(function () {
     fetchQuestionsAndStartChat();
   }, 1500);
-
-  // // Initialize the chatbot when the page loads
-  // document.addEventListener("DOMContentLoaded", () => {
-  // fetchQuestionsAndStartChat();
-  // });
 });

@@ -1,0 +1,46 @@
+1. Integrate user-input questions to the bot
+2. Adjust questions to become more snarky over time and reflect my voice more *
+3. Add introduction text to the bot
+
+JIMB-bot intro texts:
+"Hi, I'm JIMB-bot!"
+"I am a state of the art chatbot designed by ______ to help determine your time optimization aptitude and present perception diagnosis."
+
+Move into first questions:
+"Do you accept the terms and conditions of using this service?" (Options)
+    R: Response recorded. Your consent is appreciated! 
+    R: Response recorded. I hope that you will find me of use next time!
+"Let's begin with your name. What should I refer to you as?" (Input)
+    R: Welcome [name]! I will begin the testing process now.
+
+
+4. Format and style the website with summary text
+5. Response calculation
+6. Response printing
+7. Installation prints
+8. Installation design
+9. Sound design
+
+
+"questions": {
+    "question1": {
+      "text": "How do you manage your time?",
+      "type": "multiple-choice",
+      "options": {
+        "A": "I use a calendar.",
+        "B": "I prioritize tasks.",
+        "C": "I don't manage my time well."
+      },
+      "responses": {
+        "A": "Great! Using a calendar is an effective strategy.",
+        "B": "That's a smart approach! Prioritizing tasks helps a lot.",
+        "C": "It might help to start organizing tasks more intentionally."
+      }
+    },
+    "question2": {
+      "text": "What tools do you use for productivity?",
+      "type": "user-input",
+      "responses": {
+        "default": "Thanks for sharing your tools. It's always good to explore new ones!"
+      }
+    },
