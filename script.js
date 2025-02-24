@@ -94,17 +94,38 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (currentQuestion.type === "user-input") {
           let userInput = document.getElementById("userResponse");
           userInput.removeAttribute("disabled");
-          userInput.addEventListener("submit", () => {
-            let userAnswer = userInput.value;
-            if (userAnswer.trim() !== "") {
-              dataDisplay.innerHTML =
-                `<div class="msg user">${userAnswer}</div>` +
-                dataDisplay.innerHTML;
-              setTimeout(function () {
-                handleResponse(userAnswer, currentQuestionKey, currentQuestion);
-              }, 1500);
+          // userInput.addEventListener("submit", (e) => {
+          //   e.preventDefault();
+          //   let userAnswer = userInput.value;
+          //   if (userAnswer.trim() !== "") {
+          //     dataDisplay.innerHTML =
+          //       `<div class="msg user">${userAnswer}</div>` +
+          //       dataDisplay.innerHTML;
+          //     setTimeout(function () {
+          //       handleResponse(userAnswer, currentQuestionKey, currentQuestion);
+          //     }, 1500);
+          //   }
+          // });
+          userInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+              e.preventDefault(); // Prevent form submission
+              let userAnswer = userInput.value.trim();
+              if (userAnswer !== "") {
+                dataDisplay.innerHTML =
+                  `<div class="msg user">${userAnswer}</div>` +
+                  dataDisplay.innerHTML;
+                userInput.value = ""; // Clear input after submission
+                setTimeout(function () {
+                  handleResponse(
+                    userAnswer,
+                    currentQuestionKey,
+                    currentQuestion
+                  );
+                }, 1500);
+              }
             }
           });
+          userInput.setAttributeAttribute("disabled");
         }
       }, 2500);
     }
@@ -116,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
         questionText: question.text,
         userResponse: userInput,
       };
+      let responseKey;
       userResponsesRef.push(responseData);
 
       let typingWrapper = document.createElement("div");
@@ -133,10 +155,15 @@ document.addEventListener("DOMContentLoaded", function () {
       dataDisplay.prepend(typingWrapper);
 
       let typingReplace = document.getElementById("typing" + typingID);
+      if (currentQuestion.type === "user-input") {
+        responseKey = "default";
+      } else if (currentQuestion.type === "multiple-choice") {
+        responseKey = userInput;
+      }
 
       setTimeout(function () {
         typingReplace.innerHTML =
-          question.responses[userInput] || "Interesting choice!";
+          question.responses[responseKey] || "Response recorded.";
       }, 2200);
 
       typingID++;
@@ -145,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(displayQuestion, 3200); // Wait before showing the next question
       } else {
         dataDisplay.prepend(
-          '<div class="msg bot">Thank you for completing the chat! Reflect on your answers.</div>'
+          '<div class="msg bot">Thank you for completing the chat! Your results are being calculated. Please proceed to the printer to receive your diagnosis.</div>'
         );
       }
     }
@@ -173,8 +200,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(function () {
       typingReplace.innerHTML =
-        "Hi! I'm JIMB-bot, a state of the art chatbot here to help diagnose your time optimization and perception aptitude.";
-    }, 2000);
+        "Hi! I'm JIMB-bot, a state of the art chatbot designed to help diagnose your time optimization and perception aptitude.";
+    }, 1300);
   }, 500);
 
   setTimeout(function () {

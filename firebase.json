@@ -2,6 +2,7 @@
   "questions": {
     "q1": {
       "text": "What percentage of your daily schedule is dictated by external deadlines, alarms, or societal expectations?",
+      "type": "multiple-choice",
       "options": {
         "a": "Less than 25%",
         "b": "26–50%",
@@ -18,6 +19,7 @@
     },
     "q2": {
       "text": "How many hours per day do you dedicate to activities with measurable outcomes (e.g., work, chores, studying)?",
+      "type": "multiple-choice",
       "options": {
         "a": "0–2 hours",
         "b": "3–5 hours",
@@ -33,7 +35,15 @@
       "reflection": "Imagine if productivity wasn’t tied to your value. Would you work less, or would you work differently?"
     },
     "q3": {
+      "text": "How do you differentiate between productive and non-productive activities in your personal life?",
+      "type": "user-input",
+      "responses": {
+        "default": "Response recorded."
+      }
+    },
+    "q4": {
       "text": "How often do you feel guilty for ‘wasting’ time in a single day?",
+      "type": "multiple-choice",
       "options": {
         "a": "Never",
         "b": "Occasionally",
@@ -48,8 +58,9 @@
       },
       "reflection": "Who decides what counts as ‘wasting’ time? Spoiler: It’s probably not you."
     },
-    "q4": {
+    "q5": {
       "text": "How many times a day do you check the time (via clocks, phones, or other devices)?",
+      "type": "multiple-choice",
       "options": {
         "a": "0–3 times",
         "b": "4–10 times",
@@ -64,8 +75,16 @@
       },
       "reflection": "Why does checking the time feel so necessary? What happens if you don’t?"
     },
-    "q5": {
+    "q6": {
+      "text": "Do you believe alarm clocks increase efficiency, or would you naturally align with peak productivity hours??",
+      "type": "user-input",
+      "responses": {
+        "default": "Response recorded."
+      }
+    },
+    "q7": {
       "text": "When you reflect on your day, do you categorize it by...",
+      "type": "multiple-choice",
       "options": {
         "a": "Meaningful moments",
         "b": "Productivity achieved",
@@ -80,8 +99,9 @@
       },
       "reflection": "Does your day belong to you, or is it just a series of transactions with time?"
     },
-    "q6": {
+    "q8": {
       "text": "Do you notice time feeling different based on the activity you’re doing?",
+      "type": "multiple-choice",
       "options": {
         "a": "No, time feels linear and constant.",
         "b": "Yes, work drags, and fun flies by.",
@@ -95,6 +115,13 @@
         "d": "Questioning time? Careful, that’s how revolutions start and nobody wants that."
       },
       "reflection": "If time isn’t constant, why do we treat it like it is? Who benefits from that?"
+    },
+    "q9": {
+      "text": "If you were not required to adhere to a set schedule, how would you self-regulate your workflow?",
+      "type": "user-input",
+      "responses": {
+        "default": "Response recorded."
+      }
     }
   }
 }
