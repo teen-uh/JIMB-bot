@@ -1,6 +1,6 @@
-1. Integrate user-input questions to the bot
-2. Adjust questions to become more snarky over time and reflect my voice more *
-3. Add introduction text to the bot
+1. Integrate user-input questions to the bot [DONE]
+2. Adjust questions to become more snarky over time and reflect my voice more [IN-PROGRESS]
+3. Add introduction text to the bot [IN-PROGRESS]
 
 JIMB-bot intro texts:
 "Hi, I'm JIMB-bot!"
@@ -10,15 +10,19 @@ Move into first questions:
 "Do you accept the terms and conditions of using this service?" (Options)
     R: Response recorded. Your consent is appreciated! 
     R: Response recorded. I hope that you will find me of use next time!
-"Let's begin with your name. What should I refer to you as?" (Input)
+"Before continuing, please confirm your name:" (Input)
     R: Welcome [name]! I will begin the testing process now.
 
+    Add purpose for the bot and why the user is here
 
-4. Format and style the website with summary text
-    JIMB-bot is a state of the art chatbot designed to help determine your time optimization aptitude and present perception diagnosis. Please press start to begin chatting.
+4. Format and style the website with summary text [IN-PROGRESS]
+    JIMB-bot is a state of the art chatbot designed to help determine your time optimization aptitude and present perception diagnosis. Please press start to begin chatting. 
     Remember: JIMB-bot is here to help you. Your honesty in this assessment will provide more accurate results. 
-5. Response calculation
-6. Response printing
-7. Installation prints
-8. Installation design
-9. Sound design
+
+    Add purpose for the bot and why the user is here
+5. Add email enter page
+6. Response calculation [TESTING]
+7. Response printing [RESEARCHING]
+8. Installation prints [NOT STARTED]
+9. Installation design [NOT STARTED]
+10. Sound design [NOT STARTED]

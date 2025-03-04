@@ -5,33 +5,99 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/pje2dha.css" />
     <link rel="stylesheet" href="style.css" />
 
     <title>JIMB-bot</title>
   </head>
 
   <body>
-    <div class="chat-container" id="online-world">
-      <div class="hide-over">
-        <div class="chat" id="chat"><div id="bot-pfp"></div></div>
+    <div class="page-wrapper">
+      <div class="sidebar">
+        <div class="sidebar-border">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 483.5 485.2"
+            class="translateX"
+          >
+            <defs>
+              <style>
+                .cls-1 {
+                  stroke-width: 11.62px;
+                }
+                .cls-1,
+                .cls-2 {
+                  fill: none;
+                  stroke: #ffffff;
+                  stroke-miterlimit: 10;
+                }
+                .cls-2 {
+                  stroke-width: 11.5px;
+                }
+                rect {
+                  fill: #ffffff;
+                }
+              </style>
+            </defs>
+            <g id="Layer_1-2">
+              <path
+                class="cls-1"
+                d="M322.98,363.75h-169.61c-42.14,0-76.62-33.76-76.62-75.01v-59.47c0-41.26,34.48-75.01,76.62-75.01h169.61c42.14,0,83.77,28.5,83.77,75.01v59.47c0,46.01-41.63,75.01-83.77,75.01Z"
+              />
+              <rect
+                x="272.75"
+                y="216.75"
+                width="24"
+                height="78"
+                rx="12"
+                ry="12"
+              />
+              <rect
+                x="186.75"
+                y="216.75"
+                width="24"
+                height="78"
+                rx="12"
+                ry="12"
+              />
+              <path
+                class="cls-2"
+                d="M447.7,190.17h0c-2.49,0-4.92.34-7.24.97l-14.95-96.48c-7.26-44.41-20.26-67.41-53.79-68.91h0c-38.46,0-61.08,25.07-63.79,68.91l-2.95,29.61c-.05,0-.1,0-.15,0h-62.17V28.73c6.17-.21,11.11-5.26,11.11-11.48s-5.15-11.5-11.5-11.5-11.5,5.15-11.5,11.5,5.15,11.5,11.5,11.5c.11,0,.21-.01.32-.02v95.53h-64.21l-2.94-29.29c-2.71-43.83-26.24-68.91-62.89-68.91h0c-33.28,1.18-46.28,24.18-53.79,68.91l-14.93,96.05c-2.55-.77-5.23-1.19-7.99-1.19h0c-16.53,0-30.05,14.65-30.05,32.56v66.82c0,17.91,13.52,32.56,30.05,32.56h0c4.1,0,8.01-.9,11.58-2.53,4.28,12.05.36,29.5,27.46,44.05l-9.78,111.45,137.5-78.67c1.52.05,3.05.09,4.57.09h89.58c62.38,0,117.51-15,139.59-76.52,3.52,1.57,7.36,2.45,11.39,2.45h0c16.53,0,30.05-14.65,30.05-32.56v-66.82c0-17.91-13.52-32.56-30.05-32.56Z"
+              />
+            </g>
+          </svg>
+          <!-- <h1>JIMB-bot</h1> -->
+          <p>
+            <b>JIMB-bot</b> is a state-of-the-art conversational bot, engineered
+            for the evaluation of temporal efficiency and perceptual
+            analysis.<br />
+            <br />
+            Remember: JIMB-bot is here to help you. Your honesty in this
+            assessment will provide more accurate results.
+          </p>
+        </div>
       </div>
-      <div id="response-container"></div>
-      <div class="chatbox">
-        <form class="container" id="chatBox">
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              id="userResponse"
-              placeholder=""
-              disabled
-            />
+      <div class="chat-container">
+        <div class="chat-border">
+          <div class="hide-over">
+            <div class="chat" id="chat"><div id="bot-pfp"></div></div>
           </div>
-        </form>
+          <div id="response-container"></div>
+          <div class="chatbox">
+            <form class="container" id="chatBox">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control disabled"
+                  id="userResponse"
+                  placeholder=""
+                />
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- <div id="dataDisplay"></div> -->
     <script src="/script.js"></script>
   </body>
 </html>
