@@ -50,6 +50,56 @@ document.addEventListener("DOMContentLoaded", function () {
     }, timeout);
   }
 
+  function fetchUserResults(userID) {
+    let resultsRef = firebase.database().ref(`results/${userID}`);
+  
+    resultsRef.once("value").then((snapshot) => {
+      if (snapshot.exists()) {
+        let resultData = snapshot.val();
+        generatePrintableDocument(resultData);
+      } else {
+        console.error("No results found for this user.");
+      }
+    });
+  }
+  
+  function generatePrintableDocument(resultData) {
+    let printableContent = `
+      <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            h1 { text-align: center; }
+            .section { margin-bottom: 20px; }
+            .result { font-size: 18px; font-weight: bold; text-align: center; margin-top: 30px; }
+          </style>
+        </head>
+        <body>
+          <h1>Time Perception Test Results</h1>
+          <p><strong>User ID:</strong> ${resultData.userID}</p>
+  
+          <div class="section">
+            <h2>Response Summary:</h2>
+            <p>A: ${resultData.responses.A}</p>
+            <p>B: ${resultData.responses.B}</p>
+            <p>C: ${resultData.responses.C}</p>
+            <p>D: ${resultData.responses.D}</p>
+          </div>
+  
+          <div class="result">
+            <h2>Final Diagnosis: ${resultData.finalResult}</h2>
+          </div>
+        </body>
+      </html>
+    `;
+  
+    let newWindow = window.open("", "_blank");
+    newWindow.document.write(printableContent);
+    newWindow.document.close();
+    newWindow.print();
+  }
+
+
   function fetchQuestionsAndStartChat() {
     let questionsRef = firebase.database().ref("questions");
 
@@ -149,6 +199,43 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 2500);
     }
 
+    function processFinalResult(){
+      let highestChoice = [
+        { val: option_a, type: "Type A: Time Master" },
+        { val: option_b, type: "Type B: Balanced Observer" },
+        { val: option_c, type: "Type C: Time Wanderer" },
+        { val: option_d, type: "Type D: Temporal Rebel" },
+      ];
+
+      highestChoice.sort((a, b) => b.val - a.val);
+      let finalResult = highestChoice[0].type;
+    
+      let resultData = {
+        userID: userID,
+        responses: {
+          A: option_a,
+          B: option_b,
+          C: option_c,
+          D: option_d,
+        },
+        finalResult: finalResult,
+        timestamp: new Date().toISOString(),
+      };
+    
+      let resultsRef = firebase.database().ref(`results/${userID}`);
+      resultsRef.set(resultData);
+
+      let resultsDiv = document.createElement("div");
+      resultsDiv.innerHTML = `
+        <div class="flex">
+         <div id="bot-pfp"></div>
+        <div class="msg bot">Your final result: <strong>${finalResult}</strong>. Click below to print your result.</div>
+        <button onclick="fetchUserResults('${userID}')">Print My Results</button>
+        </div>`;
+    
+      dataDisplay.prepend(resultsDiv);
+    }
+
     function handleResponse(userInput, questionKey, question) {
       let userResponsesRef = firebase.database().ref(`responses/${userID}`);
       let currentQuestion = questions[questionKey];
@@ -212,24 +299,15 @@ document.addEventListener("DOMContentLoaded", function () {
       if (currentQuestionIndex < questionKeys.length) {
         setTimeout(displayQuestion, 3200);
       } else if (currentQuestionIndex >= questionKeys.length) {
-        let highestChoice = [
-          { val: option_a, variableName: "A" },
-          { val: option_b, variableName: "B" },
-          { val: option_c, variableName: "C" },
-          { val: option_d, variableName: "D" },
-        ];
-        let sortedChoices = highestChoice.sort((a, b) => a[val] - b[val]);
-        console.log(sortedChoices[3]["variableName"]);
-
-        dataDisplay.prepend(
-          '<div class="msg bot">Thank you for completing the chat! Your results are being calculated. Please proceed to the printer to receive your diagnosis.</div>'
-        );
+        processFinalResult();
       }
     }
 
     // Start with the first question
     displayQuestion();
   }
+
+
 
   setTimeout(function () {
     type("Hi! I'm JIMB-bot.");
