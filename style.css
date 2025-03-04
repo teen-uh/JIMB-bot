@@ -370,8 +370,38 @@ body {
   width: 40%;
   height: 4%;
   margin: 20px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
 }
 
 .email-container form {
   text-align: center;
+}
+
+#email-button {
+  width: 90px;
+  height: 30px;
+  padding: 5px;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  background-color: #1034e8;
+  color: white;
+  border: 1px rgb(153, 153, 153) solid;
+  font-family: "neulis-sans", sans-serif;
+}
+
+#email-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#email-form label {
+  text-align: left;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+input::placeholder {
+  font-family: "neulis-sans", sans-serif;
 }
