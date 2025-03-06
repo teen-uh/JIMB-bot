@@ -50,9 +50,46 @@ document.addEventListener("DOMContentLoaded", function () {
     }, timeout);
   }
 
+  function firstQuestions() {
+    let typingWrapper = document.createElement("div");
+    typingWrapper.innerHTML = `
+        <div class="flex">
+         <div id="bot-pfp"></div>
+        <div class="msg bot" id="typing${typingID}">
+          <div class="typing">
+              <div class="dot" style="--delay: 200ms"></div>
+              <div class="dot" style="--delay: 400ms"></div>
+              <div class="dot" style="--delay: 600ms"></div>
+        </div></div>
+        </div>`;
+
+    dataDisplay.prepend(typingWrapper);
+    let typingReplace = document.getElementById("typing" + typingID);
+
+    setTimeout(function () {
+      typingReplace.innerHTML = currentQuestion.text;
+
+      if (currentQuestion.type === "multiple-choice") {
+        let botMessage = `
+            <div class="option-wrapper">
+              ${Object.entries(currentQuestion.options)
+                .map(
+                  ([key, option]) => `
+                    <button class="option-button" data-option="${key}">${option}</button>
+                  `
+                )
+                .join("")}
+            </div>
+          `;
+
+        dataDisplay.innerHTML = botMessage + dataDisplay.innerHTML;
+      }
+    }, 500);
+  }
+
   function fetchUserResults(userID) {
     let resultsRef = firebase.database().ref(`results/${userID}`);
-  
+
     resultsRef.once("value").then((snapshot) => {
       if (snapshot.exists()) {
         let resultData = snapshot.val();
@@ -62,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-  
+
   function generatePrintableDocument(resultData) {
     let printableContent = `
       <html>
@@ -92,13 +129,12 @@ document.addEventListener("DOMContentLoaded", function () {
         </body>
       </html>
     `;
-  
+
     let newWindow = window.open("", "_blank");
     newWindow.document.write(printableContent);
     newWindow.document.close();
     newWindow.print();
   }
-
 
   function fetchQuestionsAndStartChat() {
     let questionsRef = firebase.database().ref("questions");
@@ -199,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 2500);
     }
 
-    function processFinalResult(){
+    function processFinalResult() {
       let highestChoice = [
         { val: option_a, type: "Type A: Time Master" },
         { val: option_b, type: "Type B: Balanced Observer" },
@@ -209,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       highestChoice.sort((a, b) => b.val - a.val);
       let finalResult = highestChoice[0].type;
-    
+
       let resultData = {
         userID: userID,
         responses: {
@@ -221,7 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
         finalResult: finalResult,
         timestamp: new Date().toISOString(),
       };
-    
+
       let resultsRef = firebase.database().ref(`results/${userID}`);
       resultsRef.set(resultData);
 
@@ -232,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="msg bot">Your final result: <strong>${finalResult}</strong>. Click below to print your result.</div>
         <button onclick="fetchUserResults('${userID}')">Print My Results</button>
         </div>`;
-    
+
       dataDisplay.prepend(resultsDiv);
     }
 
@@ -307,22 +343,26 @@ document.addEventListener("DOMContentLoaded", function () {
     displayQuestion();
   }
 
-
-
   setTimeout(function () {
-    type("Hi! I'm JIMB-bot.");
+    type("Hi! I'm JIMB-bot.", 600);
     setTimeout(function () {
       type(
-        "I am an advanced chatbot that evaluates your time optimization aptitude and present perception diagnosis.",
-        1200
+        "I am an advanced chatbot designed to evaluate your time optimization aptitude and present perception diagnosis.",
+        2000
       );
       setTimeout(function () {
-        type("Let's work together to optimize your productivity!", 1200);
-      }, 2900);
+        type(
+          "Your employer has outsourced us to assess your productivity levels and time use profile. Your responses and results will be recorded, processed, and sent to your employer for review. JIMB-bot is not liable for any changes to your employment status that may result after the conclusion of this assessment.",
+          5500
+        );
+        // setTimeout(function () {
+        //
+        // }, 3600);
+      }, 3500);
     }, 2300);
   }, 500);
 
   setTimeout(function () {
     fetchQuestionsAndStartChat();
-  }, 8400);
+  }, 18400);
 });

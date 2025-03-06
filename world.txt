@@ -5,6 +5,9 @@
 JIMB-bot intro texts:
 "Hi, I'm JIMB-bot!"
 "I am a state of the art chatbot designed by ______ to help determine your time optimization aptitude and present perception diagnosis."
+"Your employer has /hired/ us to assess your productivity levels and time use profile."
+"Your responses and results will be recorded, processed, and sent to your employer for review."
+"JIMB-bot is not liable for any changes to your employment status that may result after the conduction of this assessment."
 
 Move into first questions:
 "Do you accept the terms and conditions of using this service?" (Options)
