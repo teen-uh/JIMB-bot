@@ -7,7 +7,8 @@ span {
 body {
   z-index: -10;
   background-color: rgb(243, 243, 243);
-  font-family: "neulis-sans", sans-serif;
+  /* font-family: "neulis-sans", sans-serif; */
+  font-family: sans-serif;
 }
 
 input {
@@ -87,7 +88,6 @@ input:focus {
   width: fit-content;
   word-wrap: break-word;
   border: black 1px solid;
-  font-family: "neulis-sans", sans-serif;
   /* background-color: white; */
 }
 
@@ -101,9 +101,9 @@ input:focus {
 }
 
 .msg {
-  font-size: 1rem;
+  font-size: 0.95rem;
   border-radius: 3vw;
-  padding: 1.5vh 1.5vw;
+  padding: 1.7vh 1.7vw;
   margin: 10px 0px;
   width: fit-content;
   word-wrap: break-word;
@@ -254,13 +254,15 @@ body {
 }
 
 .background {
-  background-color: #ededed;
+  background-color: #d6d6d6;
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: 10px 10px 20px rgb(186, 186, 186) inset,
+  -10px -10px 20px rgb(186, 186, 186) inset;
 }
 
 .logo-wrapper {
@@ -306,13 +308,26 @@ body {
 }
 
 .intro-wrapper {
-  max-width: 35vw;
+ /* background-color: rgb(228, 228, 228);
+  border: #d3d3d3 2px solid;
+  border-radius: 15px; */
+  padding: 1rem;
+  font-weight: 400;
+  width: 35rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   text-align: center;
-  gap: 5vh;
+  gap: 3vh;
+  text-align: left;
+}
+
+.content-wrapper {
+  background-color: rgb(236, 236, 236);
+  border: #a5a5a5 2px solid;
+  border-radius: 15px;
+  padding: 5%;
 }
 
 #loading {
