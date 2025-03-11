@@ -13,11 +13,15 @@ document.addEventListener("DOMContentLoaded", function () {
   let dataDisplay = document.getElementById("chat");
   dataDisplay.innerHTML = "";
   let typingID = 1;
-  let option_a = 0,
-    option_b = 0,
-    option_c = 0,
-    option_d = 0;
   let userName;
+  let scores = {
+    autonomy: 0,
+    productivity: 0,
+    conformity: 0,
+    selfPolicing: 0,
+    timeAwareness: 0,
+  };
+  let questionsRef = firebase.database().ref("questions");
 
   function generateUserID() {
     let timestamp = Date.now();
@@ -65,25 +69,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
     dataDisplay.prepend(typingWrapper);
     let typingReplace = document.getElementById("typing" + typingID);
+    typingID++;
 
     setTimeout(function () {
-      typingReplace.innerHTML = currentQuestion.text;
+      typingReplace.innerHTML =
+        "Do you accept the terms and conditions of using this service?";
 
-      if (currentQuestion.type === "multiple-choice") {
-        let botMessage = `
-            <div class="option-wrapper">
-              ${Object.entries(currentQuestion.options)
-                .map(
-                  ([key, option]) => `
-                    <button class="option-button" data-option="${key}">${option}</button>
-                  `
-                )
-                .join("")}
-            </div>
-          `;
+      let botMessage = `
+          <div class="option-wrapper">
+            <button class="option-button" data-option="Yes">Yes</button>
+            <button class="option-button" data-option="No">No</button>
+          </div>
+        `;
 
-        dataDisplay.innerHTML = botMessage + dataDisplay.innerHTML;
-      }
+      dataDisplay.innerHTML = botMessage + dataDisplay.innerHTML;
+
+      document.querySelectorAll(".option-button").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          let selectedOption = e.target.getAttribute("data-option");
+          console.log(selectedOption);
+          dataDisplay.innerHTML =
+            `<div class="msg user">${selectedOption}</div>` +
+            dataDisplay.innerHTML;
+          if (selectedOption === "Yes") {
+            type("Response recorded. Your consent is appreciated!");
+            setTimeout(function () {
+              fetchQuestionsAndStartChat();
+            }, 2500);
+          } else if (selectedOption === "No") {
+            type(
+              "Response recorded. I hope that you will find me of use next time!"
+            );
+            setTimeout(function () {
+              window.location.replace("index.html");
+            }, 1200);
+          }
+        });
+      });
     }, 500);
   }
 
@@ -116,11 +138,12 @@ document.addEventListener("DOMContentLoaded", function () {
           <p><strong>User ID:</strong> ${resultData.userID}</p>
   
           <div class="section">
-            <h2>Response Summary:</h2>
-            <p>A: ${resultData.responses.A}</p>
-            <p>B: ${resultData.responses.B}</p>
-            <p>C: ${resultData.responses.C}</p>
-            <p>D: ${resultData.responses.D}</p>
+            <h2>Score Breakdown:</h2>
+            <p>Autonomy: ${resultData.categorizedScores.autonomy}</p>
+            <p>Productivity: ${resultData.categorizedScores.productivity}</p>
+            <p>Conformity: ${resultData.categorizedScores.conformity}</p>
+            <p>Self-Policing: ${resultData.categorizedScores.selfPolicing}</p>
+            <p>Time Awareness: ${resultData.categorizedScores.timeAwareness}</p>
           </div>
   
           <div class="result">
@@ -137,8 +160,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function fetchQuestionsAndStartChat() {
-    let questionsRef = firebase.database().ref("questions");
-
     questionsRef.once("value").then((snapshot) => {
       const questions = snapshot.val();
       if (questions) {
@@ -181,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
               ${Object.entries(currentQuestion.options)
                 .map(
                   ([key, option]) => `
-                    <button class="option-button" data-option="${key}">${option}</button>
+                    <button class="option-button" data-option="${key}">${option.text}</button>
                   `
                 )
                 .join("")}
@@ -193,8 +214,9 @@ document.addEventListener("DOMContentLoaded", function () {
           document.querySelectorAll(".option-button").forEach((button) => {
             button.addEventListener("click", (e) => {
               let selectedOption = e.target.getAttribute("data-option");
+
               dataDisplay.innerHTML =
-                `<div class="msg user">${currentQuestion.options[selectedOption]}</div>` +
+                `<div class="msg user">${currentQuestion.options[selectedOption]["text"]}</div>` +
                 dataDisplay.innerHTML;
               setTimeout(function () {
                 handleResponse(
@@ -235,25 +257,51 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 2500);
     }
 
-    function processFinalResult() {
-      let highestChoice = [
-        { val: option_a, type: "Type A: Time Master" },
-        { val: option_b, type: "Type B: Balanced Observer" },
-        { val: option_c, type: "Type C: Time Wanderer" },
-        { val: option_d, type: "Type D: Temporal Rebel" },
-      ];
+    // function updateScores(selectedOption, question) {
+    //   console.log(questionsRef.question);
+    //   // let optionScores =
+    //   //   questionsRef.question.options[selectedOption]["scores"];
+    //   // for (let key in optionScores) {
+    //   //   if (scores.hasOwnProperty(key)) {
+    //   //     scores[key] += optionScores[key];
+    //   //   }
+    //   // }
+    //   console.log("Updated Scores:", scores);
+    // }
 
-      highestChoice.sort((a, b) => b.val - a.val);
-      let finalResult = highestChoice[0].type;
+    function classifyScore(value) {
+      if (value <= 2) return "Low";
+      if (value <= 4) return "Mid";
+      return "High";
+    }
+
+    function processFinalResult() {
+      let categorizedScores = {
+        autonomy: classifyScore(scores.autonomy),
+        productivity: classifyScore(scores.productivity),
+        conformity: classifyScore(scores.conformity),
+        selfPolicing: classifyScore(scores.selfPolicing),
+        timeAwareness: classifyScore(scores.timeAwareness),
+      };
+
+      let finalResult;
+      if (
+        categorizedScores.productivity === "High" &&
+        categorizedScores.timeAwareness === "High"
+      ) {
+        finalResult = "Highly Efficient Time Manager";
+      } else if (
+        categorizedScores.selfPolicing === "High" ||
+        categorizedScores.conformity === "High"
+      ) {
+        finalResult = "Structured but Overly Critical";
+      } else {
+        finalResult = "Balanced but Needs Improvement";
+      }
 
       let resultData = {
         userID: userID,
-        responses: {
-          A: option_a,
-          B: option_b,
-          C: option_c,
-          D: option_d,
-        },
+        categorizedScores: categorizedScores,
         finalResult: finalResult,
         timestamp: new Date().toISOString(),
       };
@@ -263,11 +311,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let resultsDiv = document.createElement("div");
       resultsDiv.innerHTML = `
-        <div class="flex">
-         <div id="bot-pfp"></div>
-        <div class="msg bot">Your final result: <strong>${finalResult}</strong>. Click below to print your result.</div>
-        <button onclick="fetchUserResults('${userID}')">Print My Results</button>
-        </div>`;
+      <div class="flex">
+       <div id="bot-pfp"></div>
+      <div class="msg bot">Your categorized scores:<br>
+        Autonomy: <strong>${categorizedScores.autonomy}</strong><br>
+        Productivity: <strong>${categorizedScores.productivity}</strong><br>
+        Conformity: <strong>${categorizedScores.conformity}</strong><br>
+        Self-Policing: <strong>${categorizedScores.selfPolicing}</strong><br>
+        Time Awareness: <strong>${categorizedScores.timeAwareness}</strong>
+      </div>
+      <div class="msg bot">Your final result: <strong>${finalResult}</strong>. Click below to print your result.</div>
+      <button onclick="fetchUserResults('${userID}')">Print My Results</button>
+      </div>`;
 
       dataDisplay.prepend(resultsDiv);
     }
@@ -301,27 +356,14 @@ document.addEventListener("DOMContentLoaded", function () {
       if (currentQuestion.type === "user-input") {
         responseKey = "default";
       } else if (currentQuestion.type === "multiple-choice") {
-        if (userInput === "a") {
-          option_a++;
-        } else if (userInput === "b") {
-          option_b++;
-        } else if (userInput === "c") {
-          option_c++;
-        } else if (userInput === "d") {
-          option_d++;
+        console.log(userInput, questionKey);
+        let optionScores = question.options[userInput].scores;
+        for (let key in optionScores) {
+          if (scores.hasOwnProperty(key)) {
+            scores[key] += optionScores[key];
+          }
         }
-
-        let responseLog =
-          "A: " +
-          option_a +
-          " B: " +
-          option_b +
-          " C: " +
-          option_c +
-          " D: " +
-          option_d;
-
-        console.log(responseLog);
+        console.log("Updated Scores:", scores);
         responseKey = userInput;
       }
 
@@ -355,14 +397,10 @@ document.addEventListener("DOMContentLoaded", function () {
           "Your employer has outsourced us to assess your productivity levels and time use profile. Your responses and results will be recorded, processed, and sent to your employer for review. JIMB-bot is not liable for any changes to your employment status that may result after the conclusion of this assessment.",
           5500
         );
-        // setTimeout(function () {
-        //
-        // }, 3600);
+        setTimeout(function () {
+          firstQuestions();
+        }, 7500);
       }, 3500);
     }, 2300);
   }, 500);
-
-  setTimeout(function () {
-    fetchQuestionsAndStartChat();
-  }, 18400);
 });

@@ -50,7 +50,7 @@ input:focus {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5%;
+  gap: 2%;
   border-radius: 25px;
 }
 
@@ -262,7 +262,7 @@ body {
   justify-content: center;
   align-items: center;
   box-shadow: 10px 10px 20px rgb(186, 186, 186) inset,
-  -10px -10px 20px rgb(186, 186, 186) inset;
+    -10px -10px 20px rgb(186, 186, 186) inset;
 }
 
 .logo-wrapper {
@@ -308,7 +308,7 @@ body {
 }
 
 .intro-wrapper {
- /* background-color: rgb(228, 228, 228);
+  /* background-color: rgb(228, 228, 228);
   border: #d3d3d3 2px solid;
   border-radius: 15px; */
   padding: 1rem;
@@ -417,6 +417,6 @@ body {
   font-size: 0.9rem;
 }
 
-input::placeholder {
+/* input::placeholder {
   font-family: "neulis-sans", sans-serif;
-}
+} */
