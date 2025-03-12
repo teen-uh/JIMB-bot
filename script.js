@@ -87,7 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.querySelectorAll(".option-button").forEach((button) => {
         button.addEventListener("click", (e) => {
           let selectedOption = e.target.getAttribute("data-option");
-          console.log(selectedOption);
           dataDisplay.innerHTML =
             `<div class="msg user">${selectedOption}</div>` +
             dataDisplay.innerHTML;
@@ -177,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function displayQuestion() {
       let currentQuestionKey = questionKeys[currentQuestionIndex];
       let currentQuestion = questions[currentQuestionKey];
-
       let typingWrapper = document.createElement("div");
       typingWrapper.innerHTML = `
         <div class="flex">
@@ -228,13 +226,18 @@ document.addEventListener("DOMContentLoaded", function () {
             });
           });
         } else if (currentQuestion.type === "user-input") {
-          console.log("help");
           let userInput = document.getElementById("userResponse");
+
+          // Remove any previous event listeners before adding a new one
+          userInput.replaceWith(userInput.cloneNode(true));
+          userInput = document.getElementById("userResponse"); // Get the fresh element
+
           userInput.classList.remove("disabled");
           userInput.placeholder = "Enter response here";
+
           userInput.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
-              e.preventDefault(); // Prevent form submission
+              e.preventDefault();
               let userAnswer = userInput.value.trim();
               if (userAnswer !== "") {
                 dataDisplay.innerHTML =
@@ -256,18 +259,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }, 2500);
     }
-
-    // function updateScores(selectedOption, question) {
-    //   console.log(questionsRef.question);
-    //   // let optionScores =
-    //   //   questionsRef.question.options[selectedOption]["scores"];
-    //   // for (let key in optionScores) {
-    //   //   if (scores.hasOwnProperty(key)) {
-    //   //     scores[key] += optionScores[key];
-    //   //   }
-    //   // }
-    //   console.log("Updated Scores:", scores);
-    // }
 
     function classifyScore(value) {
       if (value <= 2) return "Low";
@@ -328,6 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleResponse(userInput, questionKey, question) {
+      console.log(questionKey);
       let userResponsesRef = firebase.database().ref(`responses/${userID}`);
       let currentQuestion = questions[questionKey];
       const responseData = {
@@ -356,7 +348,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (currentQuestion.type === "user-input") {
         responseKey = "default";
       } else if (currentQuestion.type === "multiple-choice") {
-        console.log(userInput, questionKey);
         let optionScores = question.options[userInput].scores;
         for (let key in optionScores) {
           if (scores.hasOwnProperty(key)) {

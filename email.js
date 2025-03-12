@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "katie@iml444.com": "Katie",
     "nico@iml444.com": "Nico",
     "johans@iml444.com": "Johans",
+    "dj@iml444.com": "DJ",
   };
   //   console.log(userEmail);
 
