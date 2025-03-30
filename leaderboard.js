@@ -1,12 +1,4 @@
-// Import Firebase modules
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  get,
-} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
-
-// Firebase Config - Replace with your project details
+document.addEventListener("DOMContentLoaded", function () {
 const firebaseConfig = {
   apiKey: "AIzaSyBsdDjdE_Ztdx39NgkKuOjg1HGPtaLfHSA",
   authDomain: "jimb-bot.firebaseapp.com",
@@ -17,43 +9,48 @@ const firebaseConfig = {
   measurementId: "G-VDHM6CD91N",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+firebase.initializeApp(firebaseConfig);
 
-async function loadLeaderboard() {
-  const leaderboardTable = document.querySelector("#leaderboard tbody");
+function loadLeaderboard() {
+  let leaderboardTable = document.querySelector("#leaderboard tbody");
   leaderboardTable.innerHTML = "";
 
-  const snapshot = await get(ref(db, "/results"));
-  const responsesSnapshot = await get(ref(db, "/responses"));
+  let resultsRef = firebase.database().ref(`results`);
+  let responsesRef = firebase.database().ref(`responses`);
 
-  if (!snapshot.exists() || !responsesSnapshot.exists()) return;
+  Promise.all([resultsRef.once("value"), responsesRef.once("value")])
+      .then(([resultsSnapshot, responsesSnapshot]) => {
+        if (resultsSnapshot.exists() && responsesSnapshot.exists()) {
+          let resultsData = resultsSnapshot.val();
+          let responsesData = responsesSnapshot.val();
 
-  const results = snapshot.val();
-  const responses = responsesSnapshot.val();
+          // Map and sort users by score
+          let leaderboard = Object.keys(resultsData).map((userID) => {
+            let name = responsesData[userID]
+              ? Object.values(responsesData[userID])[0].userResponse
+              : "Unknown";
+            let score = resultsData[userID].finalResult || "No Score";
 
-  // Map and sort users by score
-  const leaderboard = Object.keys(results).map((userID) => {
-    const name = responses[userID]
-      ? Object.values(responses[userID])[0].userResponse
-      : "Unknown";
-    const score = results[userID].finalResult || "No Score";
-
-    return { name, score };
+            return { name, score: parseFloat(score) || 0 }; // Ensure score is a number
+          });
+          leaderboard.sort((a, b) => b.score - a.score);
+          leaderboard.forEach((user, index) => {
+            let row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${user.name}</td>
+              <td>${user.score}</td>
+            `;
+            leaderboardTable.appendChild(row);
+          });
+    } else {
+      console.error("No results found for this user.");
+    }
+  }) .catch((error) => {
+    console.error("Error loading data from Firebase:", error);
   });
 
-  leaderboard.sort((a, b) => a.score.localeCompare(b.score));
-
-  leaderboard.forEach((user, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${user.name}</td>
-      <td>${user.score}</td>
-    `;
-    leaderboardTable.appendChild(row);
-  });
 }
 
 loadLeaderboard();
+});
