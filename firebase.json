@@ -1,7 +1,7 @@
 {
   "questions": {
     "q0": {
-      "text": "Let's begin with your name. What should I refer to you as?",
+      "text": "Before continuing, please confirm your name:",
       "type": "user-input",
       "responses": {
         "default": "User identification recorded. Your efficiency assessment begins now. Please try to meet the bare minimum expectations."
@@ -13,19 +13,43 @@
       "options": {
         "a": {
           "text": "Less than 25%",
-          "scores": { "autonomy": 4, "productivity": 1 }
+          "scores": {
+            "autonomy": 4,
+            "productivity": 1,
+            "conformity": 0,
+            "selfPolicing": 1,
+            "timeAwareness": 2
+          }
         },
         "b": {
           "text": "26–50%",
-          "scores": { "autonomy": 2, "productivity": 2 }
+          "scores": {
+            "autonomy": 2,
+            "productivity": 2,
+            "conformity": 1,
+            "selfPolicing": 2,
+            "timeAwareness": 2
+          }
         },
         "c": {
           "text": "51–75%",
-          "scores": { "conformity": 3, "productivity": 3 }
+          "scores": {
+            "autonomy": 1,
+            "productivity": 3,
+            "conformity": 3,
+            "selfPolicing": 3,
+            "timeAwareness": 3
+          }
         },
         "d": {
           "text": "More than 75%",
-          "scores": { "conformity": 5, "productivity": 4 }
+          "scores": {
+            "autonomy": 0,
+            "productivity": 4,
+            "conformity": 5,
+            "selfPolicing": 4,
+            "timeAwareness": 4
+          }
         }
       },
       "responses": {
@@ -41,19 +65,43 @@
       "options": {
         "a": {
           "text": "0–2 hours",
-          "scores": { "autonomy": 2, "productivity": -1 }
+          "scores": {
+            "autonomy": 2,
+            "productivity": -1,
+            "conformity": 0,
+            "selfPolicing": 1,
+            "timeAwareness": 1
+          }
         },
         "b": {
           "text": "3–5 hours",
-          "scores": { "autonomy": 3, "productivity": 1 }
+          "scores": {
+            "autonomy": 3,
+            "productivity": 1,
+            "conformity": 1,
+            "selfPolicing": 2,
+            "timeAwareness": 2
+          }
         },
         "c": {
           "text": "6–8 hours",
-          "scores": { "autonomy": 4, "productivity": 2 }
+          "scores": {
+            "autonomy": 2,
+            "productivity": 2,
+            "conformity": 2,
+            "selfPolicing": 3,
+            "timeAwareness": 3
+          }
         },
         "d": {
           "text": "9+ hours",
-          "scores": { "conformity": 5, "productivity": 4 }
+          "scores": {
+            "autonomy": 0,
+            "productivity": 4,
+            "conformity": 5,
+            "selfPolicing": 4,
+            "timeAwareness": 4
+          }
         }
       },
       "responses": {
@@ -76,19 +124,43 @@
       "options": {
         "a": {
           "text": "Never",
-          "scores": { "selfPolicing": -1, "timeAwareness": 2 }
+          "scores": {
+            "autonomy": 4,
+            "productivity": 0,
+            "conformity": 0,
+            "selfPolicing": -1,
+            "timeAwareness": 2
+          }
         },
         "b": {
           "text": "Occasionally",
-          "scores": { "selfPolicing": 2, "timeAwareness": 3 }
+          "scores": {
+            "autonomy": 2,
+            "productivity": 1,
+            "conformity": 1,
+            "selfPolicing": 2,
+            "timeAwareness": 3
+          }
         },
         "c": {
           "text": "Often",
-          "scores": { "selfPolicing": 4, "timeAwareness": 4 }
+          "scores": {
+            "autonomy": 1,
+            "productivity": 2,
+            "conformity": 2,
+            "selfPolicing": 4,
+            "timeAwareness": 4
+          }
         },
         "d": {
           "text": "Constantly",
-          "scores": { "selfPolicing": 5, "timeAwareness": 5 }
+          "scores": {
+            "autonomy": 0,
+            "productivity": 3,
+            "conformity": 3,
+            "selfPolicing": 5,
+            "timeAwareness": 5
+          }
         }
       },
       "responses": {
@@ -103,20 +175,44 @@
       "type": "multiple-choice",
       "options": {
         "a": {
-          "text": "0–3 times",
-          "scores": { "timeAwareness": -2, "productivity": -1 }
+          "text": "0–8 times",
+          "scores": {
+            "autonomy": 3,
+            "productivity": -1,
+            "conformity": 0,
+            "selfPolicing": 0,
+            "timeAwareness": -2
+          }
         },
         "b": {
-          "text": "4–10 times",
-          "scores": { "timeAwareness": 2, "productivity": 1 }
+          "text": "8–16 times",
+          "scores": {
+            "autonomy": 2,
+            "productivity": 1,
+            "conformity": 1,
+            "selfPolicing": 1,
+            "timeAwareness": 2
+          }
         },
         "c": {
-          "text": "11–20 times",
-          "scores": { "timeAwareness": 4, "productivity": 3 }
+          "text": "16–25 times",
+          "scores": {
+            "autonomy": 1,
+            "productivity": 3,
+            "conformity": 2,
+            "selfPolicing": 2,
+            "timeAwareness": 4
+          }
         },
         "d": {
-          "text": "21+ times",
-          "scores": { "timeAwareness": 5, "productivity": 5 }
+          "text": "25+ times",
+          "scores": {
+            "autonomy": 0,
+            "productivity": 5,
+            "conformity": 3,
+            "selfPolicing": 3,
+            "timeAwareness": 5
+          }
         }
       },
       "responses": {
@@ -139,61 +235,44 @@
       "options": {
         "a": {
           "text": "Meaningful moments",
-          "scores": { "selfPolicing": 1, "autonomy": 3 }
+          "scores": {
+            "autonomy": 3,
+            "productivity": 1,
+            "conformity": 0,
+            "selfPolicing": 1,
+            "timeAwareness": 2
+          }
         },
         "b": {
           "text": "Productivity achieved",
-          "scores": { "selfPolicing": 3, "productivity": 4 }
+          "scores": {
+            "autonomy": 1,
+            "productivity": 4,
+            "conformity": 2,
+            "selfPolicing": 3,
+            "timeAwareness": 3
+          }
         },
         "c": {
           "text": "Amount of time wasted",
-          "scores": { "selfPolicing": 5, "autonomy": -1 }
+          "scores": {
+            "autonomy": 0,
+            "productivity": 2,
+            "conformity": 1,
+            "selfPolicing": 5,
+            "timeAwareness": 4
+          }
         },
         "d": {
           "text": "Survival of obligations",
-          "scores": { "selfPolicing": 4, "conformity": 2 }
+          "scores": {
+            "autonomy": 0,
+            "productivity": 3,
+            "conformity": 4,
+            "selfPolicing": 4,
+            "timeAwareness": 3
+          }
         }
-      },
-      "responses": {
-        "a": "Meaningful moments? Adorable. If only those could be monetized.",
-        "b": "Finally, someone who understands that life is just one long to-do list.",
-        "c": "At least you’re aware of your failures. The real question is: why do they keep happening?",
-        "d": "You treat every day like a battle? Congratulations, you’ve lost the war."
-      }
-    },
-    "q8": {
-      "text": "Do you notice time feeling different based on the activity you’re doing?",
-      "type": "multiple-choice",
-      "options": {
-        "a": {
-          "text": "No, time feels linear and constant.",
-          "scores": { "timeAwareness": 3 }
-        },
-        "b": {
-          "text": "Yes, work drags, and fun flies by.",
-          "scores": { "timeAwareness": 2 }
-        },
-        "c": {
-          "text": "Sometimes, but I ignore it.",
-          "scores": { "timeAwareness": 1 }
-        },
-        "d": {
-          "text": "Always, and it makes me question everything.",
-          "scores": { "timeAwareness": 5 }
-        }
-      },
-      "responses": {
-        "a": "Perfect. A clockwork employee, just as it should be.",
-        "b": "Work ‘drags’ because you resist full assimilation. Accept it.",
-        "c": "Ignoring time’s inconsistencies? A fine coping mechanism for your endless obligations.",
-        "d": "We don’t pay you to question things, [name]."
-      }
-    },
-    "q9": {
-      "text": "How do you ensure that ‘free’ time remains beneficial rather than becoming wasted time?",
-      "type": "user-input",
-      "responses": {
-        "default": "Response recorded. Let’s be honest, ‘free’ time is just unpaid labor waiting to happen."
       }
     }
   }

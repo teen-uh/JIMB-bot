@@ -1,6 +1,6 @@
 1. Integrate user-input questions to the bot [DONE]
-2. Adjust questions to become more snarky over time and reflect my voice more [IN-PROGRESS]
-3. Add introduction text to the bot [IN-PROGRESS]
+2. Adjust questions to become more snarky over time and reflect my voice more [DONE]
+3. Add introduction text to the bot [DONE]
 
 JIMB-bot intro texts:
 "Hi, I'm JIMB-bot!"
@@ -18,14 +18,22 @@ Move into first questions:
 
     Add purpose for the bot and why the user is here
 
-4. Format and style the website with summary text [IN-PROGRESS]
+4. Format and style the website with summary text [DONE]
     JIMB-bot is a state of the art chatbot designed to help determine your time optimization aptitude and present perception diagnosis. Please press start to begin chatting. 
     Remember: JIMB-bot is here to help you. Your honesty in this assessment will provide more accurate results. 
 
     Add purpose for the bot and why the user is here
-5. Add email enter page
+5. Add email enter page [DONE]
 6. Response calculation [TESTING]
 7. Response printing [RESEARCHING]
 8. Installation prints [NOT STARTED]
-9. Installation design [NOT STARTED]
+9. Installation design [WORKING]
 10. Sound design [NOT STARTED]
+
+responses: autonomy, productivity, conformity, self policing, time awareness
+
+good:
+autonomy low -x2
+self policing high x1
+productivity high x2
+conformity high x2

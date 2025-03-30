@@ -266,6 +266,22 @@ document.addEventListener("DOMContentLoaded", function () {
       return "High";
     }
 
+    function calculateFinalScore(
+      autonomy,
+      productivity,
+      conformity,
+      selfPolicing,
+      timeAwareness
+    ) {
+      let a = autonomy * 2 * -1;
+      let p = productivity * 2;
+      let c = conformity * 2;
+      let t = timeAwareness;
+      let s = selfPolicing;
+      let score = a + p + c + t + s;
+      return score;
+    }
+
     function processFinalResult() {
       let categorizedScores = {
         autonomy: classifyScore(scores.autonomy),
@@ -274,8 +290,15 @@ document.addEventListener("DOMContentLoaded", function () {
         selfPolicing: classifyScore(scores.selfPolicing),
         timeAwareness: classifyScore(scores.timeAwareness),
       };
-
+      let finalScore = calculateFinalScore(
+        scores.autonomy,
+        scores.productivity,
+        scores.conformity,
+        scores.selfPolicing,
+        scores.timeAwareness
+      );
       let finalResult;
+
       if (
         categorizedScores.productivity === "High" &&
         categorizedScores.timeAwareness === "High"
@@ -294,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
         userID: userID,
         categorizedScores: categorizedScores,
         finalResult: finalResult,
+        finalScore: finalScore,
         timestamp: new Date().toISOString(),
       };
 
