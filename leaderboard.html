@@ -13,12 +13,12 @@
   </head>
   <body>
     <!-- background -->
-    <div class="background">
+    <div class="lb-bg">
       <!-- div with logo -->
-      <div class="content-wrapper">
-        <div class="logo-wrapper">
+      <div class="lb-wrapper">
+        <div class="lb-top">
           <svg
-            id="icon"
+            id="lb-icon"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 483.5 485.2"
             class="translateX"
@@ -69,11 +69,16 @@
               />
             </g>
           </svg>
-          <h1 id="icon-text">JIMB-bot</h1>
+          <div id="lb-text-wrapper">
+            <h1 id="lb-text">Time Optimization Ranking</h1>
+            <h2>
+              The official ranking of employees based on their time optimization
+              aptitude as calculated by JIMB-bot.
+            </h2>
+          </div>
         </div>
         <!-- div with text and button -->
         <div class="leaderboard">
-          <h1>Leaderboard</h1>
           <table id="leaderboard">
             <thead>
               <tr>
