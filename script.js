@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
             setTimeout(function () {
               window.location.replace("index.html");
-            }, 1200);
+            }, 2600);
           }
         });
       });
@@ -157,6 +157,10 @@ document.addEventListener("DOMContentLoaded", function () {
     newWindow.document.close();
     newWindow.print();
   }
+
+  window.fetchUserResults = fetchUserResults;
+  window.generatePrintableDocument = generatePrintableDocument;
+
 
   function fetchQuestionsAndStartChat() {
     questionsRef.once("value").then((snapshot) => {
@@ -335,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
         Self-Policing: <strong>${categorizedScores.selfPolicing}</strong><br>
         Time Awareness: <strong>${categorizedScores.timeAwareness}</strong>
       </div>
-      <div class="msg bot">Your final result: <strong>${finalResult}</strong>. Click below to print your result.</div>
+      <div class="msg bot">Your final result: <strong>${finalScore}</strong>. Click below to print your result.</div>
       <button onclick="fetchUserResults('${userID}')">Print My Results</button>
       </div>`;
 
