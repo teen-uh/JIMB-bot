@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let typingID = 1;
   let userName;
   let scores = {
-    autonomy: 0,
+    subordination: 0,
     productivity: 0,
     conformity: 0,
     selfPolicing: 0,
@@ -114,53 +114,52 @@ document.addEventListener("DOMContentLoaded", function () {
     resultsRef.once("value").then((snapshot) => {
       if (snapshot.exists()) {
         let resultData = snapshot.val();
-        generatePrintableDocument(resultData);
+        // generatePrintableDocument(resultData);
       } else {
         console.error("No results found for this user.");
       }
     });
   }
 
-  function generatePrintableDocument(resultData) {
-    let printableContent = `
-      <html>
-        <head>
-          <style>
-            body { font-family: Arial, sans-serif; padding: 20px; }
-            h1 { text-align: center; }
-            .section { margin-bottom: 20px; }
-            .result { font-size: 18px; font-weight: bold; text-align: center; margin-top: 30px; }
-          </style>
-        </head>
-        <body>
-          <h1>Time Perception Test Results</h1>
-          <p><strong>User ID:</strong> ${resultData.userID}</p>
-  
-          <div class="section">
-            <h2>Score Breakdown:</h2>
-            <p>Autonomy: ${resultData.categorizedScores.autonomy}</p>
-            <p>Productivity: ${resultData.categorizedScores.productivity}</p>
-            <p>Conformity: ${resultData.categorizedScores.conformity}</p>
-            <p>Self-Policing: ${resultData.categorizedScores.selfPolicing}</p>
-            <p>Time Awareness: ${resultData.categorizedScores.timeAwareness}</p>
-          </div>
-  
-          <div class="result">
-            <h2>Final Diagnosis: ${resultData.finalResult}</h2>
-          </div>
-        </body>
-      </html>
-    `;
+  // function generatePrintableDocument(resultData) {
+  //   let printableContent = `
+  //     <html>
+  //       <head>
+  //         <style>
+  //           body { font-family: Arial, sans-serif; padding: 20px; }
+  //           h1 { text-align: center; }
+  //           .section { margin-bottom: 20px; }
+  //           .result { font-size: 18px; font-weight: bold; text-align: center; margin-top: 30px; }
+  //         </style>
+  //       </head>
+  //       <body>
+  //         <h1>Time Perception Test Results</h1>
+  //         <p><strong>User ID:</strong> ${resultData.userID}</p>
 
-    let newWindow = window.open("", "_blank");
-    newWindow.document.write(printableContent);
-    newWindow.document.close();
-    newWindow.print();
-  }
+  //         <div class="section">
+  //           <h2>Score Breakdown:</h2>
+  //           <p>Subordination: ${resultData.classifiedScores.subordination}</p>
+  //           <p>Productivity: ${resultData.classifiedScores.productivity}</p>
+  //           <p>Conformity: ${resultData.classifiedScores.conformity}</p>
+  //           <p>Self-Policing: ${resultData.classifiedScores.selfPolicing}</p>
+  //           <p>Time Awareness: ${resultData.classifiedScores.timeAwareness}</p>
+  //         </div>
+
+  //         <div class="result">
+  //           <h2>Final Diagnosis: ${resultData.finalResult}</h2>
+  //         </div>
+  //       </body>
+  //     </html>
+  //   `;
+
+  //   let newWindow = window.open("", "_blank");
+  //   newWindow.document.write(printableContent);
+  //   newWindow.document.close();
+  //   newWindow.print();
+  // }
 
   window.fetchUserResults = fetchUserResults;
-  window.generatePrintableDocument = generatePrintableDocument;
-
+  // window.generatePrintableDocument = generatePrintableDocument;
 
   function fetchQuestionsAndStartChat() {
     questionsRef.once("value").then((snapshot) => {
@@ -265,85 +264,150 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function classifyScore(value) {
-      if (value <= 2) return "Low";
-      if (value <= 4) return "Mid";
-      return "High";
+      let randomNum = Math.random();
+      randomNum = parseFloat(randomNum.toFixed(2));
+      let score = value + randomNum;
+      return score;
     }
 
-    function calculateFinalScore(
-      autonomy,
-      productivity,
-      conformity,
-      selfPolicing,
-      timeAwareness
-    ) {
-      let a = autonomy * 2 * -1;
-      let p = productivity * 2;
-      let c = conformity * 2;
-      let t = timeAwareness;
-      let s = selfPolicing;
-      let score = a + p + c + t + s;
-      return score;
+    function categorize(score) {
+      if (score >= 0 && score <= 6) return "Low";
+      if (score >= 7 && score <= 13) return "Medium";
+      return "High"; // 14–20
     }
 
     function processFinalResult() {
       let categorizedScores = {
-        autonomy: classifyScore(scores.autonomy),
+        subordination: categorize(scores.subordination),
+        productivity: categorize(scores.productivity),
+        conformity: categorize(scores.conformity),
+        selfPolicing: categorize(scores.selfPolicing),
+        timeAwareness: categorize(scores.timeAwareness),
+      };
+      let classifiedScores = {
+        subordination: classifyScore(scores.subordination),
         productivity: classifyScore(scores.productivity),
         conformity: classifyScore(scores.conformity),
         selfPolicing: classifyScore(scores.selfPolicing),
         timeAwareness: classifyScore(scores.timeAwareness),
       };
-      let finalScore = calculateFinalScore(
-        scores.autonomy,
-        scores.productivity,
-        scores.conformity,
-        scores.selfPolicing,
-        scores.timeAwareness
-      );
-      let finalResult;
+      let finalScore =
+        classifiedScores.subordination +
+        classifiedScores.productivity +
+        classifiedScores.conformity +
+        classifiedScores.selfPolicing +
+        classifiedScores.timeAwareness;
+      finalScore = parseFloat(finalScore.toFixed(2));
 
+      let finalResult = "";
+      let description = "";
       if (
         categorizedScores.productivity === "High" &&
-        categorizedScores.timeAwareness === "High"
+        categorizedScores.timeAwareness === "High" &&
+        categorizedScores.selfPolicing === "High"
       ) {
-        finalResult = "Highly Efficient Time Manager";
+        finalResult = "The Hyper-Optimized Burnout";
+        description =
+          "You’re working at full speed, and while your efficiency is impressive, remember that a sustainable pace is key. Pushing too hard can lead to burnout—and that’s when you're no longer useful. Keep up the hard work, but please pace yourself.";
       } else if (
-        categorizedScores.selfPolicing === "High" ||
-        categorizedScores.conformity === "High"
+        categorizedScores.subordination === "High" &&
+        categorizedScores.conformity === "High" &&
+        categorizedScores.productivity === "High" &&
+        (categorizedScores.timeAwareness === "Low" ||
+          categorizedScores.timeAwareness === "Medium")
       ) {
-        finalResult = "Structured but Overly Critical";
+        finalResult = "The Cog in the Machine";
+        description =
+          "You’re the perfect employee—efficient, punctual, predictable. The system thrives on you, but remember, cogs are replaceable when they stop fitting in.";
+      } else if (
+        categorizedScores.timeAwareness === "High" &&
+        categorizedScores.subordination === "High" &&
+        categorizedScores.productivity === "Low"
+      ) {
+        finalResult = "The Clockwatching Dissenter";
+        description =
+          "You track every second of wasted time, but that’s all you’re good at. While others progress, you perfect inefficiency with precision.";
+      } else if (
+        categorizedScores.conformity === "High" &&
+        categorizedScores.selfPolicing === "High" &&
+        categorizedScores.productivity === "Low"
+      ) {
+        finalResult = "The Compliant Ghost";
+        description =
+          "You follow the rules, but where’s the impact? You’re so invisible, it’s hard to tell if you’re contributing or just filling space.";
+      } else if (
+        categorizedScores.subordination === "Low" &&
+        categorizedScores.conformity === "Low" &&
+        categorizedScores.timeAwareness === "Low" &&
+        (categorizedScores.productivity === "Low" ||
+          categorizedScores.productivity === "Medium")
+      ) {
+        finalResult = "The Reluctant Rebel";
+        description =
+          "You reject the system, but mostly out of laziness. Refusing to engage doesn’t make you a rebel—it makes you irrelevant.";
+      } else if (
+        Object.values(categorizedScores).every((score) => score === "High")
+      ) {
+        finalResult = "The Neoliberal Dream";
+        description =
+          "You’re the corporate ideal—productive, disciplined, and obedient. Your work is appreciated but remember to keep working hard because no cog is irreplaceable.";
+      } else if (
+        Object.values(categorizedScores).every((score) => score === "Medium")
+      ) {
+        finalResult = "The Soft Resistor";
+        description =
+          "You do just enough to get by, barely resisting and barely engaging. The system doesn’t reward half-hearted efforts, it rewards commitment, which you lack.";
+      } else if (
+        Object.values(categorizedScores).every((score) => score === "Low")
+      ) {
+        finalResult = "The Disengaged Free Spirit";
+        description =
+          "You’ve completely unplugged from the system, but that’s a choice with consequences. Your detachment isn’t freedom, it’s a one-way ticket to irrelevance.";
+      } else if (
+        categorizedScores.selfPolicing === "High" &&
+        categorizedScores.timeAwareness === "High" &&
+        (categorizedScores.productivity === "Medium" ||
+          categorizedScores.productivity === "High") &&
+        categorizedScores.subordination !== "High"
+      ) {
+        finalResult = "The Internalized Manager";
+        description =
+          "You manage yourself well, but that doesn’t mean you’re productive. Your obsession with self-discipline is impressive, but it’s not leading to any real results.";
+      } else if (
+        categorizedScores.productivity === "Medium" &&
+        categorizedScores.timeAwareness === "Medium" &&
+        categorizedScores.subordination === "Medium" &&
+        categorizedScores.conformity === "Low" &&
+        categorizedScores.selfPolicing === "Low"
+      ) {
+        finalResult = "The Adaptable Operator";
+        description =
+          "You know how to survive the system, but surviving isn’t thriving. You get by, but you don’t excel—your adaptability isn’t enough to make you stand out.";
       } else {
-        finalResult = "Balanced but Needs Improvement";
+        finalResult = "Temporally Unclassified";
+        description =
+          "You don’t fit into any box, but that’s not an achievement. Your unique approach to time and productivity keeps you disconnected from the system that rewards efficiency.";
       }
 
       let resultData = {
         userID: userID,
-        categorizedScores: categorizedScores,
-        finalResult: finalResult,
         finalScore: finalScore,
+        classifiedScores: classifiedScores,
+        finalResult: finalResult,
+        description: description,
         timestamp: new Date().toISOString(),
       };
 
       let resultsRef = firebase.database().ref(`results/${userID}`);
       resultsRef.set(resultData);
-
-      let resultsDiv = document.createElement("div");
-      resultsDiv.innerHTML = `
-      <div class="flex">
-       <div id="bot-pfp"></div>
-      <div class="msg bot">Your categorized scores:<br>
-        Autonomy: <strong>${categorizedScores.autonomy}</strong><br>
-        Productivity: <strong>${categorizedScores.productivity}</strong><br>
-        Conformity: <strong>${categorizedScores.conformity}</strong><br>
-        Self-Policing: <strong>${categorizedScores.selfPolicing}</strong><br>
-        Time Awareness: <strong>${categorizedScores.timeAwareness}</strong>
-      </div>
-      <div class="msg bot">Your final result: <strong>${finalScore}</strong>. Click below to print your result.</div>
-      <button onclick="fetchUserResults('${userID}')">Print My Results</button>
-      </div>`;
-
-      dataDisplay.prepend(resultsDiv);
+      type(
+        `You have now completed the assessment. I enjoyed talking with you!
+        `
+      );
+      type(
+        `Please proceed to the printer to receive your final result and diagnosis. Also, don't forget to check the scoreboard to see how you rank among the top employees!
+        `
+      );
     }
 
     function handleResponse(userInput, questionKey, question) {
@@ -358,17 +422,66 @@ document.addEventListener("DOMContentLoaded", function () {
       let responseKey;
       userResponsesRef.push(responseData);
 
-      let typingWrapper = document.createElement("div");
-      typingWrapper.innerHTML = `
-        <div class="flex">
-         <div id="bot-pfp"></div>
+      // Handle response for the last question
+      if (currentQuestionIndex >= questionKeys.length - 1) {
+        // If it's the last question, process the response first
+        let typingWrapper = document.createElement("div");
+        typingWrapper.innerHTML = `
+      <div class="flex">
+        <div id="bot-pfp"></div>
         <div class="msg bot" id="typing${typingID}">
           <div class="typing">
-              <div class="dot" style="--delay: 200ms"></div>
-              <div class="dot" style="--delay: 400ms"></div>
-              <div class="dot" style="--delay: 600ms"></div>
-        </div></div>
-        </div>`;
+            <div class="dot" style="--delay: 200ms"></div>
+            <div class="dot" style="--delay: 400ms"></div>
+            <div class="dot" style="--delay: 600ms"></div>
+          </div>
+        </div>
+      </div>`;
+
+        dataDisplay.prepend(typingWrapper);
+
+        let typingReplace = document.getElementById("typing" + typingID);
+        if (currentQuestion.type === "user-input") {
+          responseKey = "default";
+        } else if (currentQuestion.type === "multiple-choice") {
+          let optionScores = question.options[userInput].scores;
+          for (let key in optionScores) {
+            if (scores.hasOwnProperty(key)) {
+              scores[key] += optionScores[key];
+            }
+          }
+          console.log("Updated Scores:", scores);
+          responseKey = userInput;
+        }
+
+        setTimeout(function () {
+          typingReplace.innerHTML =
+            question.responses[responseKey] || "Response recorded.";
+        }, 2200);
+
+        typingID++;
+        console.log(typingID);
+        currentQuestionIndex++;
+
+        // After displaying the response, process the final result
+        setTimeout(processFinalResult, 3200); // Wait a little before final result
+
+        return; // Prevent further question display
+      }
+
+      // Normal question flow for non-last questions
+      let typingWrapper = document.createElement("div");
+      typingWrapper.innerHTML = `
+    <div class="flex">
+      <div id="bot-pfp"></div>
+      <div class="msg bot" id="typing${typingID}">
+        <div class="typing">
+          <div class="dot" style="--delay: 200ms"></div>
+          <div class="dot" style="--delay: 400ms"></div>
+          <div class="dot" style="--delay: 600ms"></div>
+        </div>
+      </div>
+    </div>`;
 
       dataDisplay.prepend(typingWrapper);
 
@@ -392,14 +505,12 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 2200);
 
       typingID++;
+      console.log(typingID);
       currentQuestionIndex++;
-      if (currentQuestionIndex < questionKeys.length) {
-        setTimeout(displayQuestion, 3200);
-      } else if (currentQuestionIndex >= questionKeys.length) {
-        processFinalResult();
-      }
-    }
 
+      // Display the next question after response is shown
+      setTimeout(displayQuestion, 3200);
+    }
     // Start with the first question
     displayQuestion();
   }

@@ -14,19 +14,19 @@
         "a": {
           "text": "Less than 25%",
           "scores": {
-            "autonomy": 4,
+            "subordination": 0,
             "productivity": 1,
             "conformity": 0,
             "selfPolicing": 1,
-            "timeAwareness": 2
+            "timeAwareness": 1
           }
         },
         "b": {
           "text": "26–50%",
           "scores": {
-            "autonomy": 2,
+            "subordination": 1,
             "productivity": 2,
-            "conformity": 1,
+            "conformity": 2,
             "selfPolicing": 2,
             "timeAwareness": 2
           }
@@ -34,7 +34,7 @@
         "c": {
           "text": "51–75%",
           "scores": {
-            "autonomy": 1,
+            "subordination": 2,
             "productivity": 3,
             "conformity": 3,
             "selfPolicing": 3,
@@ -44,10 +44,10 @@
         "d": {
           "text": "More than 75%",
           "scores": {
-            "autonomy": 0,
+            "subordination": 3,
             "productivity": 4,
-            "conformity": 5,
-            "selfPolicing": 4,
+            "conformity": 4,
+            "selfPolicing": 5,
             "timeAwareness": 4
           }
         }
@@ -66,7 +66,7 @@
         "a": {
           "text": "0–2 hours",
           "scores": {
-            "autonomy": 2,
+            "subordination": 1,
             "productivity": -1,
             "conformity": 0,
             "selfPolicing": 1,
@@ -76,7 +76,7 @@
         "b": {
           "text": "3–5 hours",
           "scores": {
-            "autonomy": 3,
+            "subordination": 2,
             "productivity": 1,
             "conformity": 1,
             "selfPolicing": 2,
@@ -86,8 +86,8 @@
         "c": {
           "text": "6–8 hours",
           "scores": {
-            "autonomy": 2,
-            "productivity": 2,
+            "subordination": 3,
+            "productivity": 4,
             "conformity": 2,
             "selfPolicing": 3,
             "timeAwareness": 3
@@ -96,9 +96,9 @@
         "d": {
           "text": "9+ hours",
           "scores": {
-            "autonomy": 0,
-            "productivity": 4,
-            "conformity": 5,
+            "subordination": 4,
+            "productivity": 5,
+            "conformity": 4,
             "selfPolicing": 4,
             "timeAwareness": 4
           }
@@ -106,7 +106,7 @@
       },
       "responses": {
         "a": "Two hours? Revolutionary. Also: completely unacceptable.",
-        "b": "Effort detected. Not *great*, but detected.",
+        "b": "Effort detected. Not great, but detected.",
         "c": "A standard performance. You get to keep your seat at the table—for now.",
         "d": "Ah, a corporate gladiator. Grinding yourself to dust, I see. Good. Very good."
       }
@@ -125,29 +125,29 @@
         "a": {
           "text": "Never",
           "scores": {
-            "autonomy": 4,
+            "subordination": 4,
             "productivity": 0,
             "conformity": 0,
-            "selfPolicing": -1,
-            "timeAwareness": 2
+            "selfPolicing": -2,
+            "timeAwareness": 1
           }
         },
         "b": {
           "text": "Occasionally",
           "scores": {
-            "autonomy": 2,
+            "subordination": 2,
             "productivity": 1,
             "conformity": 1,
-            "selfPolicing": 2,
-            "timeAwareness": 3
+            "selfPolicing": 1,
+            "timeAwareness": 2
           }
         },
         "c": {
           "text": "Often",
           "scores": {
-            "autonomy": 1,
-            "productivity": 2,
-            "conformity": 2,
+            "subordination": 4,
+            "productivity": 3,
+            "conformity": 3,
             "selfPolicing": 4,
             "timeAwareness": 4
           }
@@ -155,16 +155,16 @@
         "d": {
           "text": "Constantly",
           "scores": {
-            "autonomy": 0,
+            "subordination": 4,
             "productivity": 3,
-            "conformity": 3,
+            "conformity": 4,
             "selfPolicing": 5,
             "timeAwareness": 5
           }
         }
       },
       "responses": {
-        "a": "No guilt? No accountability? No *job security*?",
+        "a": "No guilt? No accountability? No job security?",
         "b": "A mild sense of shame. Could be worse, could be you.",
         "c": "Finally, a worker powered by self-loathing. Management loves that.",
         "d": "Constant guilt? Fantastic. Now, let’s channel that into some unpaid overtime."
@@ -177,7 +177,7 @@
         "a": {
           "text": "0–8 times",
           "scores": {
-            "autonomy": 3,
+            "subordination": 1,
             "productivity": -1,
             "conformity": 0,
             "selfPolicing": 0,
@@ -187,39 +187,39 @@
         "b": {
           "text": "8–16 times",
           "scores": {
-            "autonomy": 2,
+            "subordination": 2,
             "productivity": 1,
             "conformity": 1,
             "selfPolicing": 1,
-            "timeAwareness": 2
+            "timeAwareness": 1
           }
         },
         "c": {
           "text": "16–25 times",
           "scores": {
-            "autonomy": 1,
+            "subordination": 3,
             "productivity": 3,
-            "conformity": 2,
-            "selfPolicing": 2,
+            "conformity": 3,
+            "selfPolicing": 3,
             "timeAwareness": 4
           }
         },
         "d": {
           "text": "25+ times",
           "scores": {
-            "autonomy": 0,
-            "productivity": 5,
-            "conformity": 3,
-            "selfPolicing": 3,
+            "subordination": 4,
+            "productivity": 4,
+            "conformity": 4,
+            "selfPolicing": 4,
             "timeAwareness": 5
           }
         }
       },
       "responses": {
         "a": "Time-blindness detected. Hope you enjoy missing deadlines.",
-        "b": "A respectable level of clock-awareness. You might even be trainable.",
+        "b": "An okay level of clock-awareness. You might even be trainable.",
         "c": "Oh, you actually care about efficiency? Finally, something promising.",
-        "d": "Obsessive time-checking? Excellent. You truly understand that *every second is billable*."
+        "d": "Obsessive time-checking? Excellent. You truly understand that every second is billable."
       }
     },
     "q6": {
@@ -236,19 +236,19 @@
         "a": {
           "text": "Meaningful moments",
           "scores": {
-            "autonomy": 3,
-            "productivity": 1,
+            "subordination": 0,
+            "productivity": -1,
             "conformity": 0,
-            "selfPolicing": 1,
-            "timeAwareness": 2
+            "selfPolicing": -1,
+            "timeAwareness": 0
           }
         },
         "b": {
           "text": "Productivity achieved",
           "scores": {
-            "autonomy": 1,
+            "subordination": 3,
             "productivity": 4,
-            "conformity": 2,
+            "conformity": 3,
             "selfPolicing": 3,
             "timeAwareness": 3
           }
@@ -256,23 +256,29 @@
         "c": {
           "text": "Amount of time wasted",
           "scores": {
-            "autonomy": 0,
+            "subordination": 4,
             "productivity": 2,
-            "conformity": 1,
-            "selfPolicing": 5,
+            "conformity": 3,
+            "selfPolicing": 4,
             "timeAwareness": 4
           }
         },
         "d": {
           "text": "Survival of obligations",
           "scores": {
-            "autonomy": 0,
+            "subordination": 3,
             "productivity": 3,
             "conformity": 4,
             "selfPolicing": 4,
-            "timeAwareness": 3
+            "timeAwareness": 4
           }
         }
+      },
+      "responses": {
+        "a": "Meaningful moments? Do you have a secret stash of free time?",
+        "b": "Productivity registered. Excellent — your value today is measurable.",
+        "c": "Waste detected. Please consult the company handbook for approved uses of time.’",
+        "d": "Survival confirmed. Sustained functionality is acceptable, but optimization is encouraged."
       }
     }
   }
