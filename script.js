@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
             setTimeout(function () {
               window.location.replace("index.html");
-            }, 2600);
+            }, 3200);
           }
         });
       });
@@ -120,43 +120,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
-  // function generatePrintableDocument(resultData) {
-  //   let printableContent = `
-  //     <html>
-  //       <head>
-  //         <style>
-  //           body { font-family: Arial, sans-serif; padding: 20px; }
-  //           h1 { text-align: center; }
-  //           .section { margin-bottom: 20px; }
-  //           .result { font-size: 18px; font-weight: bold; text-align: center; margin-top: 30px; }
-  //         </style>
-  //       </head>
-  //       <body>
-  //         <h1>Time Perception Test Results</h1>
-  //         <p><strong>User ID:</strong> ${resultData.userID}</p>
-
-  //         <div class="section">
-  //           <h2>Score Breakdown:</h2>
-  //           <p>Subordination: ${resultData.classifiedScores.subordination}</p>
-  //           <p>Productivity: ${resultData.classifiedScores.productivity}</p>
-  //           <p>Conformity: ${resultData.classifiedScores.conformity}</p>
-  //           <p>Self-Policing: ${resultData.classifiedScores.selfPolicing}</p>
-  //           <p>Time Awareness: ${resultData.classifiedScores.timeAwareness}</p>
-  //         </div>
-
-  //         <div class="result">
-  //           <h2>Final Diagnosis: ${resultData.finalResult}</h2>
-  //         </div>
-  //       </body>
-  //     </html>
-  //   `;
-
-  //   let newWindow = window.open("", "_blank");
-  //   newWindow.document.write(printableContent);
-  //   newWindow.document.close();
-  //   newWindow.print();
-  // }
 
   window.fetchUserResults = fetchUserResults;
   // window.generatePrintableDocument = generatePrintableDocument;
@@ -306,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
         categorizedScores.timeAwareness === "High" &&
         categorizedScores.selfPolicing === "High"
       ) {
-        finalResult = "The Hyper-Optimized Burnout";
+        finalResult = "Overperforming at Unsustainable Rates";
         description =
           "You’re working at full speed, and while your efficiency is impressive, remember that a sustainable pace is key. Pushing too hard can lead to burnout—and that’s when you're no longer useful. Keep up the hard work, but please pace yourself.";
       } else if (
@@ -316,7 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
         (categorizedScores.timeAwareness === "Low" ||
           categorizedScores.timeAwareness === "Medium")
       ) {
-        finalResult = "The Cog in the Machine";
+        finalResult = "Reliable and Replaceable";
         description =
           "You’re the perfect employee—efficient, punctual, predictable. The system thrives on you, but remember, cogs are replaceable when they stop fitting in.";
       } else if (
@@ -324,17 +287,17 @@ document.addEventListener("DOMContentLoaded", function () {
         categorizedScores.subordination === "High" &&
         categorizedScores.productivity === "Low"
       ) {
-        finalResult = "The Clockwatching Dissenter";
+        finalResult = "High Awareness, Low Output";
         description =
-          "You track every second of wasted time, but that’s all you’re good at. While others progress, you perfect inefficiency with precision.";
+          "You track every moment but fail to convert awareness into value. While others progress, you perfect inefficiency with precision.";
       } else if (
         categorizedScores.conformity === "High" &&
         categorizedScores.selfPolicing === "High" &&
         categorizedScores.productivity === "Low"
       ) {
-        finalResult = "The Compliant Ghost";
+        finalResult = "Compliance with Minimal Yield";
         description =
-          "You follow the rules, but where’s the impact? You’re so invisible, it’s hard to tell if you’re contributing or just filling space.";
+          "You execute without question. But impact, not compliance, drives retention. It’s hard to tell if you’re contributing or just filling space.";
       } else if (
         categorizedScores.subordination === "Low" &&
         categorizedScores.conformity === "Low" &&
@@ -342,27 +305,27 @@ document.addEventListener("DOMContentLoaded", function () {
         (categorizedScores.productivity === "Low" ||
           categorizedScores.productivity === "Medium")
       ) {
-        finalResult = "The Reluctant Rebel";
+        finalResult = "Low Engagement Risk Factor";
         description =
-          "You reject the system, but mostly out of laziness. Refusing to engage doesn’t make you a rebel—it makes you irrelevant.";
+          "You resist structure and avoid output. Refusing to engage doesn’t make you a rebel—it makes you irrelevant.";
       } else if (
         Object.values(categorizedScores).every((score) => score === "High")
       ) {
-        finalResult = "The Neoliberal Dream";
+        finalResult = "System-Aligned Productivity Asset";
         description =
-          "You’re the corporate ideal—productive, disciplined, and obedient. Your work is appreciated but remember to keep working hard because no cog is irreplaceable.";
+          "You meet every benchmark and internalize every expectation. Your work is appreciated but remember to keep working hard because further optimization could deem you obsolete.";
       } else if (
         Object.values(categorizedScores).every((score) => score === "Medium")
       ) {
-        finalResult = "The Soft Resistor";
+        finalResult = "Consistently Unremarkable";
         description =
           "You do just enough to get by, barely resisting and barely engaging. The system doesn’t reward half-hearted efforts, it rewards commitment, which you lack.";
       } else if (
         Object.values(categorizedScores).every((score) => score === "Low")
       ) {
-        finalResult = "The Disengaged Free Spirit";
+        finalResult = "Noncompliant and Unaligned";
         description =
-          "You’ve completely unplugged from the system, but that’s a choice with consequences. Your detachment isn’t freedom, it’s a one-way ticket to irrelevance.";
+          "You’ve completely unplugged from the system, but that’s a choice with consequences. This does not make you unique—just flagged for removal.";
       } else if (
         categorizedScores.selfPolicing === "High" &&
         categorizedScores.timeAwareness === "High" &&
@@ -370,9 +333,9 @@ document.addEventListener("DOMContentLoaded", function () {
           categorizedScores.productivity === "High") &&
         categorizedScores.subordination !== "High"
       ) {
-        finalResult = "The Internalized Manager";
+        finalResult = "Self-Disciplined, Underperforming";
         description =
-          "You manage yourself well, but that doesn’t mean you’re productive. Your obsession with self-discipline is impressive, but it’s not leading to any real results.";
+          "You enforce control over yourself without producing commensurate results. Oversight without output is inefficiency.";
       } else if (
         categorizedScores.productivity === "Medium" &&
         categorizedScores.timeAwareness === "Medium" &&
@@ -380,13 +343,13 @@ document.addEventListener("DOMContentLoaded", function () {
         categorizedScores.conformity === "Low" &&
         categorizedScores.selfPolicing === "Low"
       ) {
-        finalResult = "The Adaptable Operator";
+        finalResult = "Adaptive Non-Essential";
         description =
-          "You know how to survive the system, but surviving isn’t thriving. You get by, but you don’t excel—your adaptability isn’t enough to make you stand out.";
+          "You exhibit flexibility in navigating expectations, but without driving measurable outcomes. Your presence maintains stability, but offers no strategic value. You are useful—until optimization requires otherwise.";
       } else {
         finalResult = "Temporally Unclassified";
         description =
-          "You don’t fit into any box, but that’s not an achievement. Your unique approach to time and productivity keeps you disconnected from the system that rewards efficiency.";
+          "Your behavior and time management fall outside established norms. You resist fitting into any useful category. Anomalies are flagged for review—and eventually, removal. Systemic cohesion requires conformity.";
       }
 
       let resultData = {
@@ -404,10 +367,21 @@ document.addEventListener("DOMContentLoaded", function () {
         `You have now completed the assessment. I enjoyed talking with you!
         `
       );
-      type(
-        `Please proceed to the printer to receive your final result and diagnosis. Also, don't forget to check the scoreboard to see how you rank among the top employees!
+      setTimeout(function () {
+        type(
+          `Please proceed to the printer to receive your final result and diagnosis. Also, don't forget to check the scoreboard to see how you rank among the top employees!
         `
-      );
+        );
+      }, 2000);
+      setTimeout(function () {
+        type(
+          `The system will now reset.
+        `
+        );
+      }, 4200);
+      setTimeout(function () {
+        window.location.replace("index.html");
+      }, 8000);
     }
 
     function handleResponse(userInput, questionKey, question) {
