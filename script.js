@@ -271,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         finalResult = "Overperforming at Unsustainable Rates";
         description =
-          "You’re working at full speed, and while your efficiency is impressive, remember that a sustainable pace is key. Pushing too hard can lead to burnout—and that’s when you're no longer useful. Keep up the hard work, but please pace yourself.";
+          "You’re working at full speed, and while your efficiency is impressive, remember that a sustainable pace is key. Pushing too hard can lead to burnout—and that’s when you're no longer useful. Keep up the hard work, but don't break the machine.";
       } else if (
         categorizedScores.subordination === "High" &&
         categorizedScores.conformity === "High" &&
@@ -297,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         finalResult = "Compliance with Minimal Yield";
         description =
-          "You execute without question. But impact, not compliance, drives retention. It’s hard to tell if you’re contributing or just filling space.";
+          "You comply without question. But impact, not compliance, drives retention. It’s hard to tell if you’re contributing or just filling space.";
       } else if (
         categorizedScores.subordination === "Low" &&
         categorizedScores.conformity === "Low" &&
@@ -319,13 +319,13 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         finalResult = "Consistently Unremarkable";
         description =
-          "You do just enough to get by, barely resisting and barely engaging. The system doesn’t reward half-hearted efforts, it rewards commitment, which you lack.";
+          "You do just enough to get by, barely resisting but barely engaging. The system doesn’t reward half-hearted efforts, it rewards commitment, which you lack.";
       } else if (
         Object.values(categorizedScores).every((score) => score === "Low")
       ) {
         finalResult = "Noncompliant and Unaligned";
         description =
-          "You’ve completely unplugged from the system, but that’s a choice with consequences. This does not make you unique—just flagged for removal.";
+          "You’ve completely unplugged from the system, but that’s a choice with consequences. This does not make you unique—just flagged for termination.";
       } else if (
         categorizedScores.selfPolicing === "High" &&
         categorizedScores.timeAwareness === "High" &&
@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         finalResult = "Temporally Unclassified";
         description =
-          "Your behavior and time management fall outside established norms. You resist fitting into any useful category. Anomalies are flagged for review—and eventually, removal. Systemic cohesion requires conformity.";
+          "Your behavior and time management fall outside established norms. You resist fitting into any useful category. Anomalies are flagged for review—and eventually, termination.";
       }
 
       let resultData = {

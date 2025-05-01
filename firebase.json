@@ -105,7 +105,7 @@
         }
       },
       "responses": {
-        "a": "Two hours? Revolutionary. Also: completely unacceptable.",
+        "a": "Two hours? Revolutionary. At the same time, completely unacceptable.",
         "b": "Effort detected. Not great, but detected.",
         "c": "A standard performance. You get to keep your seat at the table—for now.",
         "d": "Ah, a corporate gladiator. Grinding yourself to dust, I see. Good. Very good."
@@ -165,7 +165,7 @@
       },
       "responses": {
         "a": "No guilt? No accountability? No job security?",
-        "b": "A mild sense of shame. Could be worse, could be you.",
+        "b": "A mild sense of shame. Could be worse.",
         "c": "Finally, a worker powered by self-loathing. Management loves that.",
         "d": "Constant guilt? Fantastic. Now, let’s channel that into some unpaid overtime."
       }
@@ -216,7 +216,7 @@
         }
       },
       "responses": {
-        "a": "Time-blindness detected. Hope you enjoy missing deadlines.",
+        "a": "Time-blindness detected. Enjoy missing deadlines.",
         "b": "An okay level of clock-awareness. You might even be trainable.",
         "c": "Oh, you actually care about efficiency? Finally, something promising.",
         "d": "Obsessive time-checking? Excellent. You truly understand that every second is billable."
@@ -226,7 +226,7 @@
       "text": "How do you differentiate between productive and non-productive activities in your personal life?",
       "type": "user-input",
       "responses": {
-        "default": "Response recorded. Hopefully, it wasn’t some nonsense about ‘self-care’."
+        "default": "Response recorded."
       }
     },
     "q7": {
