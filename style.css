@@ -442,7 +442,7 @@ body {
   align-items: center;
   box-shadow: 10px 10px 20px rgb(217, 217, 217) inset,
     -10px -10px 20px rgb(217, 217, 217) inset;
-  gap: 5%;
+  gap: 7%;
 }
 
 #lb-icon {
