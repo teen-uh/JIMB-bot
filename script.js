@@ -373,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function () {
         `,
           2000
         );
-      }, 6000);
+      }, 3000);
       setTimeout(function () {
         type(
           `The system will now reset.
