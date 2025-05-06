@@ -370,18 +370,19 @@ document.addEventListener("DOMContentLoaded", function () {
       setTimeout(function () {
         type(
           `Please proceed to the printer to receive your final result and diagnosis. Also, don't forget to check the scoreboard to see how you rank among the top employees!
-        `
+        `,
+          2000
         );
-      }, 4000);
+      }, 6000);
       setTimeout(function () {
         type(
           `The system will now reset.
         `
         );
-      }, 6200);
+      }, 10000);
       setTimeout(function () {
         window.location.replace("index.html");
-      }, 10000);
+      }, 15000);
     }
 
     function handleResponse(userInput, questionKey, question) {
