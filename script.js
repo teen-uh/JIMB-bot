@@ -372,16 +372,16 @@ document.addEventListener("DOMContentLoaded", function () {
           `Please proceed to the printer to receive your final result and diagnosis. Also, don't forget to check the scoreboard to see how you rank among the top employees!
         `
         );
-      }, 2000);
+      }, 4000);
       setTimeout(function () {
         type(
           `The system will now reset.
         `
         );
-      }, 4200);
+      }, 6200);
       setTimeout(function () {
         window.location.replace("index.html");
-      }, 8000);
+      }, 10000);
     }
 
     function handleResponse(userInput, questionKey, question) {
