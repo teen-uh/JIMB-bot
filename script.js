@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   firebase.initializeApp(firebaseConfig);
+
   let dataDisplay = document.getElementById("chat");
   dataDisplay.innerHTML = "";
   let typingID = 1;
@@ -122,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   window.fetchUserResults = fetchUserResults;
-  // window.generatePrintableDocument = generatePrintableDocument;
 
   function fetchQuestionsAndStartChat() {
     questionsRef.once("value").then((snapshot) => {
@@ -363,26 +363,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let resultsRef = firebase.database().ref(`results/${userID}`);
       resultsRef.set(resultData);
+
       type(
         `You have now completed the assessment. I enjoyed talking with you!
         `
       );
       setTimeout(function () {
+        // type(
+        //   `Please proceed to the printer to receive your final result and diagnosis. Also, don't forget to check the scoreboard to see how you rank among the top employees!
+        // `,
+        //   2000
+        // );
         type(
-          `Please proceed to the printer to receive your final result and diagnosis. Also, don't forget to check the scoreboard to see how you rank among the top employees!
+          `Your final results and diagnosis will be provided in a moment. Don't forget to check the leaderboard to see how you rank among the top employees!
         `,
           2000
         );
       }, 3000);
       setTimeout(function () {
-        type(
-          `The system will now reset.
-        `
-        );
-      }, 10000);
-      setTimeout(function () {
-        window.location.replace("index.html");
-      }, 15000);
+        const resultPayload = {
+          userName: userName,
+          resultData: resultData,
+        };
+
+        const resultWindow = window.open("results.html", "_blank");
+        const board = window.open("leaderboard.html", "_blank");
+
+        const sendResultToNewWindow = () => {
+          if (resultWindow) {
+            resultWindow.postMessage(resultPayload, "*"); // or specify origin instead of "*"
+          }
+        };
+
+        // Try sending after 1s in case it hasn't loaded
+        setTimeout(sendResultToNewWindow, 1000);
+      }, 8000);
+      // setTimeout(function () {
+      //   type(
+      //     `The system will now reset.
+      //   `
+      //   );
+      // }, 10000);
+      // setTimeout(function () {
+      //   window.location.replace("index.html");
+      // }, 15000);
     }
 
     function handleResponse(userInput, questionKey, question) {
@@ -478,6 +502,10 @@ document.addEventListener("DOMContentLoaded", function () {
         typingReplace.innerHTML =
           question.responses[responseKey] || "Response recorded.";
       }, 2200);
+
+      if (questionKey == "q0") {
+        userName = userInput;
+      }
 
       typingID++;
       console.log(typingID);
